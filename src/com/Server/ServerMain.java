@@ -4,8 +4,10 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.logging.Level;
 
 import com.Conf.Constants;
+import com.Conf.LogManager;
 import com.Conf.ServerCenterLocation;
 
 public class ServerMain {
@@ -20,8 +22,10 @@ public class ServerMain {
 		createRemoteObj();
 
 		registerServers();
-
-		System.out.println("Server Ready! Listening on port :: " + Constants.PORT_NUM);
+		
+		LogManager logManager = new LogManager("ServerGlobal");
+		logManager.logger.log(Level.INFO, "Server Ready! Listening on port :: " + Constants.RMI_PORT_NUM);
+		System.out.println("Server Ready! Listening on port :: " + Constants.RMI_PORT_NUM);
 
 	}
 
@@ -33,9 +37,9 @@ public class ServerMain {
 	
 	public static void createRemoteObj() {
 		try {
-			stubMTL = (ICenterServer) UnicastRemoteObject.exportObject(serverMTL, Constants.PORT_NUM);
-			stubLVL = (ICenterServer) UnicastRemoteObject.exportObject(serverLVL, Constants.PORT_NUM);
-			stubDDO = (ICenterServer) UnicastRemoteObject.exportObject(serverDDO, Constants.PORT_NUM);
+			stubMTL = (ICenterServer) UnicastRemoteObject.exportObject(serverMTL, Constants.RMI_PORT_NUM);
+			stubLVL = (ICenterServer) UnicastRemoteObject.exportObject(serverLVL, Constants.RMI_PORT_NUM);
+			stubDDO = (ICenterServer) UnicastRemoteObject.exportObject(serverDDO, Constants.RMI_PORT_NUM);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -45,14 +49,13 @@ public class ServerMain {
 		// Bind the remote object's stub in the registry
 		Registry registry;
 		try {
-			registry = LocateRegistry.createRegistry(Constants.PORT_NUM);
+			registry = LocateRegistry.createRegistry(Constants.RMI_PORT_NUM);
 			registry.bind("MTL", stubMTL);
 			registry.bind("LVL", stubLVL);
 			registry.bind("DDO", stubDDO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 }
