@@ -1,41 +1,47 @@
 package com.Server;
 
-import java.rmi.RemoteException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import com.Conf.LogManager;
+import com.Conf.ServerCenterLocation;
 
 public class ServerImp implements ICenterServer {
 	
-	public ServerImp(){
-		
+	HashMap<String,String> recordsMap;
+	LogManager logManager;
+	public ServerImp(ServerCenterLocation loc) {
+		recordsMap = new HashMap<>();
+		logManager = new LogManager(loc.toString());
 	}
 
 	@Override
 	public String createTRecord(String tRecord) {
-		// TODO Auto-generated method stub
+		logManager.logger.log(Level.INFO, "Create T record successful");
 		return tRecord;
 	}
 
 	@Override
 	public String createSRecord(String sRecord) {
-		// TODO Auto-generated method stub
+		logManager.logger.log(Level.INFO, "Create S record successful");
 		return sRecord;
 	}
 
 	@Override
 	public Integer getRecordCount() {
-		// TODO Auto-generated method stub
+		logManager.logger.log(Level.INFO, "Record Count successful");
 		return 1;
 	}
 
 	@Override
 	public String editRecord(String newRecord) {
-		// TODO Auto-generated method stub
+		logManager.logger.log(Level.INFO, "Record edit successful");
 		return newRecord;
 	}
 
-//	@Override
-//	public String sayHello() throws RemoteException {
-//		// TODO Auto-generated method stub
-//		return "hello";
-//	}
-	
+	// @Override
+	// public String sayHello() throws RemoteException {
+	// // TODO Auto-generated method stub
+	// return "hello";
+	// }
+
 }

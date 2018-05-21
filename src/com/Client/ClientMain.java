@@ -18,8 +18,8 @@ public class ClientMain {
             ICenterServer iCenterServerLVL = (ICenterServer) registry.lookup("LVL");
             ICenterServer iCenterServerDDO = (ICenterServer) registry.lookup("DDO");
             String responseMTL = iCenterServerMTL.createTRecord("MTL");
-            String responseLVL = iCenterServerMTL.createTRecord("LVL");
-            String responseDDO = iCenterServerMTL.createTRecord("DDO");
+            String responseLVL = iCenterServerLVL.createTRecord("LVL");
+            String responseDDO = iCenterServerDDO.createTRecord("DDO");
             System.out.println(responseMTL+" "+responseLVL+" "+responseDDO);
             
         } catch (Exception e) {
