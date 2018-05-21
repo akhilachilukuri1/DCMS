@@ -7,6 +7,7 @@ String Address;
 String phone;
 String specilization;
 String location;
+String TeacherID;
 public String getFirstName() {
 	return firstName;
 }
@@ -43,9 +44,16 @@ public String getLocation() {
 public void setLocation(String location) {
 	this.location = location;
 }
+public String getTeacherID() {
+	return TeacherID;
+}
+public void setTeacherID(String teacherID) {
+	TeacherID = teacherID;
+}
 @Override
 public String toString() {
 	return "Teacher [firstName=" + firstName + ", lastName=" + lastName + ", Address=" + Address + ", phone=" + phone
-			+ ", specilization=" + specilization + ", location=" + location + "]";
+			+ ", specilization=" + specilization + ", location=" + location + ", TeacherID=" + TeacherID + "]";
 }
+
 }

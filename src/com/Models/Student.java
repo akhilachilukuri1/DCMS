@@ -9,6 +9,7 @@ public class Student {
 	ArrayList<String> CoursesRegistered = new ArrayList<String>();
 	boolean status;
 	Date statusDate;
+	String studentID;
 
 	public String getFirstName() {
 		return firstName;
@@ -50,9 +51,18 @@ public class Student {
 		this.statusDate = statusDate;
 	}
 
+	public String getStudentID() {
+		return studentID;
+	}
+
+	public void setStudentID(String studentID) {
+		this.studentID = studentID;
+	}
+
 	@Override
 	public String toString() {
 		return "Student [firstName=" + firstName + ", lastName=" + lastName + ", CoursesRegistered=" + CoursesRegistered
-				+ ", status=" + status + ", statusDate=" + statusDate + "]";
+				+ ", status=" + status + ", statusDate=" + statusDate + ", studentID=" + studentID + "]";
 	}
-}
+
+	}
