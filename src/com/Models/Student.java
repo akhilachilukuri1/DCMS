@@ -7,19 +7,19 @@ import java.util.Date;
 public class Student extends Record implements Serializable {
 	String firstName;
 	String lastName;
-	ArrayList<String> CoursesRegistered = new ArrayList<String>();
-	boolean status;
-	Date statusDate;
+	String CoursesRegistered;
+	String status;
+	String statusDate;
 	String studentID;
 
-	public Student(){
-		
+	public Student() {
+
 	}
-	
+
 	public Student(String studentID, String firstName, String lastname) {
-		super( studentID,firstName, lastname);
+		super(studentID, firstName, lastname);
 	}
-	
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -36,27 +36,27 @@ public class Student extends Record implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public ArrayList<String> getCoursesRegistered() {
+	public String getCoursesRegistered() {
 		return CoursesRegistered;
 	}
 
-	public void setCoursesRegistered(ArrayList<String> coursesRegistered) {
-		CoursesRegistered = coursesRegistered;
+	public void setCoursesRegistered(String newvalue) {
+		CoursesRegistered = newvalue;
 	}
 
-	public boolean isStatus() {
+	public String isStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public Date getStatusDate() {
+	public String getStatusDate() {
 		return statusDate;
 	}
 
-	public void setStatusDate(Date statusDate) {
+	public void setStatusDate(String statusDate) {
 		this.statusDate = statusDate;
 	}
 
@@ -74,4 +74,4 @@ public class Student extends Record implements Serializable {
 				+ ", status=" + status + ", statusDate=" + statusDate + ", studentID=" + studentID + "]";
 	}
 
-	}
+}
