@@ -2,11 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e8f3939d-1986-4823-bb57-75129849f08d" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/Conf/LogClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Logs/DDO.log" afterPath="$PROJECT_DIR$/Logs/DDO.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Logs/LVL.log" afterPath="$PROJECT_DIR$/Logs/LVL.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Logs/MTL.log" afterPath="$PROJECT_DIR$/Logs/MTL.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Logs/ServerGlobal.log" afterPath="$PROJECT_DIR$/Logs/ServerGlobal.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Client/ClientImp.java" afterPath="$PROJECT_DIR$/src/com/Client/ClientImp.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Client/ClientMain.java" afterPath="$PROJECT_DIR$/src/com/Client/ClientMain.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Conf/Constants.java" afterPath="$PROJECT_DIR$/src/com/Conf/Constants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Conf/LogManager.java" afterPath="$PROJECT_DIR$/src/com/Conf/LogManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Models/Student.java" afterPath="$PROJECT_DIR$/src/com/Models/Student.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Models/Teacher.java" afterPath="$PROJECT_DIR$/src/com/Models/Teacher.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Server/ICenterServer.java" afterPath="$PROJECT_DIR$/src/com/Server/ICenterServer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Server/ServerImp.java" afterPath="$PROJECT_DIR$/src/com/Server/ServerImp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Server/ServerMain.java" afterPath="$PROJECT_DIR$/src/com/Server/ServerMain.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Server/ServerUDP.java" afterPath="$PROJECT_DIR$/src/com/Server/ServerUDP.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,8 +29,20 @@
       <file leaf-file-name="ClientMain.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/Client/ClientMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="19" column="53" lean-forward="false" selection-start-line="19" selection-start-column="53" selection-end-line="19" selection-end-column="53" />
+            <state relative-caret-position="124">
+              <caret line="59" column="40" lean-forward="true" selection-start-line="59" selection-start-column="40" selection-end-line="59" selection-end-column="40" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClientImp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/Client/ClientImp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="107">
+              <caret line="36" column="1" lean-forward="true" selection-start-line="36" selection-start-column="1" selection-end-line="36" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -31,8 +51,8 @@
       <file leaf-file-name="ServerImp.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/Server/ServerImp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="472">
-              <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+            <state relative-caret-position="693">
+              <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -51,8 +71,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/Client/ClientMain.java" />
         <option value="$PROJECT_DIR$/src/com/Server/ServerImp.java" />
+        <option value="$PROJECT_DIR$/src/com/Client/ClientMain.java" />
+        <option value="$PROJECT_DIR$/src/com/Client/ClientImp.java" />
       </list>
     </option>
   </component>
@@ -261,7 +282,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -290,17 +311,27 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/com/Server/ServerImp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="472">
-          <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+        <state relative-caret-position="693">
+          <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/Client/ClientImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="36" column="1" lean-forward="true" selection-start-line="36" selection-start-column="1" selection-end-line="36" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/Client/ClientMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="19" column="53" lean-forward="false" selection-start-line="19" selection-start-column="53" selection-end-line="19" selection-end-column="53" />
-          <folding />
+        <state relative-caret-position="124">
+          <caret line="59" column="40" lean-forward="true" selection-start-line="59" selection-start-column="40" selection-end-line="59" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

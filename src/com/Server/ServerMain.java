@@ -24,9 +24,10 @@ public class ServerMain {
 		registerServers();
 		
 		LogManager logManager = new LogManager("ServerGlobal");
-		logManager.logger.log(Level.INFO, "Server Ready! Listening on port :: " + Constants.RMI_PORT_NUM);
-		System.out.println("Server Ready! Listening on port :: " + Constants.RMI_PORT_NUM);
-
+		logManager.logger.log(Level.INFO, "Server Ready! Listening on port :: " + Constants.RMI_PORT_NUM_MTL);
+		System.out.println("Server Ready! Listening on port :: " + Constants.RMI_PORT_NUM_MTL);
+		System.out.println("Server Ready! Listening on port :: " + Constants.RMI_PORT_NUM_LVL);
+		System.out.println("Server Ready! Listening on port :: " + Constants.RMI_PORT_NUM_DDO);
 	}
 
 	public static void init(){
@@ -37,9 +38,9 @@ public class ServerMain {
 	
 	public static void createRemoteObj() {
 		try {
-			stubMTL = (ICenterServer) UnicastRemoteObject.exportObject(serverMTL, Constants.RMI_PORT_NUM);
-			stubLVL = (ICenterServer) UnicastRemoteObject.exportObject(serverLVL, Constants.RMI_PORT_NUM);
-			stubDDO = (ICenterServer) UnicastRemoteObject.exportObject(serverDDO, Constants.RMI_PORT_NUM);
+			stubMTL = (ICenterServer) UnicastRemoteObject.exportObject(serverMTL, Constants.RMI_PORT_NUM_MTL);
+			stubLVL = (ICenterServer) UnicastRemoteObject.exportObject(serverLVL, Constants.RMI_PORT_NUM_LVL);
+			stubDDO = (ICenterServer) UnicastRemoteObject.exportObject(serverDDO, Constants.RMI_PORT_NUM_DDO);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -47,12 +48,14 @@ public class ServerMain {
 
 	public static void registerServers() {
 		// Bind the remote object's stub in the registry
-		Registry registry;
+		Registry registryMTL,registryLVL,registryDDO;
 		try {
-			registry = LocateRegistry.createRegistry(Constants.RMI_PORT_NUM);
-			registry.bind("MTL", stubMTL);
-			registry.bind("LVL", stubLVL);
-			registry.bind("DDO", stubDDO);
+			registryMTL = LocateRegistry.createRegistry(Constants.RMI_PORT_NUM_MTL);
+			registryLVL = LocateRegistry.createRegistry(Constants.RMI_PORT_NUM_LVL);
+			registryDDO = LocateRegistry.createRegistry(Constants.RMI_PORT_NUM_DDO);
+			registryMTL.bind("MTL", stubMTL);
+			registryLVL.bind("LVL", stubLVL);
+			registryDDO.bind("DDO", stubDDO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

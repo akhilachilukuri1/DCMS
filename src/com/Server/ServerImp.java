@@ -1,29 +1,33 @@
 package com.Server;
 
-import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.Conf.Constants;
 import com.Conf.LogManager;
 import com.Conf.ServerCenterLocation;
+import com.Models.Record;
+import com.Models.Student;
+import com.Models.Teacher;
 
 public class ServerImp implements ICenterServer {
-
-	HashMap<String, String> recordsMap;
 	LogManager logManager;
 	ServerUDP serverUDP;
 	String IPaddress;
+	HashMap<String, List<Record>> recordsMap;
+	static int studentCount=0;
+	static int teacherCount=0;
+	String location;
 	
 	public ServerImp(ServerCenterLocation loc) {
-		recordsMap = new HashMap<>();
 		logManager = new LogManager(loc.toString());
-		
+		recordsMap = new HashMap<>();
 		serverUDP = new ServerUDP(loc,logManager.logger);
 		serverUDP.start();
+		location = loc.toString();
 		
 		setIPAddress(loc);
 		
@@ -43,24 +47,49 @@ public class ServerImp implements ICenterServer {
 		}
 	}
 
-	@Override
-	public String createTRecord(String tRecord) {
-		logManager.logger.log(Level.INFO, "Create T record successful");
-		return tRecord;
-	}
 
 	@Override
-	public String createSRecord(String sRecord) {
+	public String createTRecord(Teacher teacher) {
+		
+		String teacherid ="TR"+(++teacherCount);
+		teacher.setTeacherID(teacherid);
+		
+		String key = teacher.getLastName().substring(0, 1);
+		addRecordToHashMap(key, teacher, null);
+		
+		System.out.println("teacher is added "+teacher+ "with this key" +key);
+		logManager.logger.log(Level.INFO, "Teacher record created "+teacherid);
+		return teacherid;
+	}
+
+	private void addRecordToHashMap(String key,Teacher teacher,Student student){
+		List<Record> recordList = recordsMap.get(key);
+		if (recordList != null) {
+			recordList.add(teacher);
+		} else {
+			List<Record> records = new ArrayList<Record>();
+			records.add(teacher);
+			recordList = records;
+		}
+		System.out.println(recordList);
+		recordsMap.put(key, recordList);
+	}
+	
+	@Override
+	public String createSRecord(Student student) {
+		String studentid="SR"+(studentCount+1);
+		student.setStudentID(studentid);
+		logManager.logger.log(Level.INFO, "Teacher record is assigned with "+studentid);
 		logManager.logger.log(Level.INFO, "Create S record successful");
-		return sRecord;
+		return studentid;
 	}
 
 	@Override
-	public Integer getRecordCount() {
+	public String getRecordCount() {
 		logManager.logger.log(Level.INFO, "Record Count successful");
 		int totalrecCount = this.recordsMap.size();
 		getOtherServersRecCount();
-		return 1;
+		return "";
 	}
 
 	private void getOtherServersRecCount() {
@@ -80,8 +109,9 @@ public class ServerImp implements ICenterServer {
 	}
 
 	@Override
-	public String editRecord(String newRecord) {
+	public String editRecord(String recordID,String fieldname,String newvalue) {
+		String message="found and edited";
 		logManager.logger.log(Level.INFO, "Record edit successful");
-		return newRecord;
+		return message;
 	}
 }

@@ -18,6 +18,7 @@ public class ServerUDP extends Thread {
 	int udpPortNum;
 	ServerCenterLocation location;
 	Logger loggerInstance;
+	
 	public ServerUDP(ServerCenterLocation loc,Logger logger) {
 		location = loc;
 		loggerInstance = logger;

@@ -1,15 +1,25 @@
 package com.Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Student {
+public class Student extends Record implements Serializable {
 	String firstName;
 	String lastName;
 	ArrayList<String> CoursesRegistered = new ArrayList<String>();
 	boolean status;
 	Date statusDate;
+	String studentID;
 
+	public Student(){
+		
+	}
+	
+	public Student(String studentID, String firstName, String lastname) {
+		super( studentID,firstName, lastname);
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -50,9 +60,18 @@ public class Student {
 		this.statusDate = statusDate;
 	}
 
+	public String getStudentID() {
+		return studentID;
+	}
+
+	public void setStudentID(String studentID) {
+		this.studentID = studentID;
+	}
+
 	@Override
 	public String toString() {
 		return "Student [firstName=" + firstName + ", lastName=" + lastName + ", CoursesRegistered=" + CoursesRegistered
-				+ ", status=" + status + ", statusDate=" + statusDate + "]";
+				+ ", status=" + status + ", statusDate=" + statusDate + ", studentID=" + studentID + "]";
 	}
-}
+
+	}

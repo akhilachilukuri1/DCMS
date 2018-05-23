@@ -1,6 +1,9 @@
 package com.Conf;
 public class Constants {
-	public static int RMI_PORT_NUM = 6666;
+	public static int RMI_PORT_NUM_MTL = 6666;
+	public static int RMI_PORT_NUM_LVL = 1099;
+	public static int RMI_PORT_NUM_DDO = 1234;
+
 	
 	public static int UDP_PORT_NUM_MTL = 9999;
 	public static int UDP_PORT_NUM_LVL = 1111;
