@@ -13,5 +13,5 @@ public class Constants {
 	public static String LVL_SERVER_ADDRESS = "localhost";
 	public static String DDO_SERVER_ADDRESS = "localhost";
 
-	public static String LOG_DIR = System.getProperty("user.dir");
+	public static String LOG_DIR = "F:\\DCMS\\Logs\\";
 }

@@ -4,12 +4,16 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.Conf.Constants;
 import com.Conf.LogManager;
 import com.Conf.ServerCenterLocation;
+import com.Models.Record;
+
 
 public class ServerUDP extends Thread {
 	DatagramSocket serverSocket;
@@ -18,10 +22,14 @@ public class ServerUDP extends Thread {
 	int udpPortNum;
 	ServerCenterLocation location;
 	Logger loggerInstance;
+	volatile int recordsCount = 0;
+	volatile int c = 0;
+	ServerImp server;
 	
-	public ServerUDP(ServerCenterLocation loc,Logger logger) {
+	public ServerUDP(ServerCenterLocation loc, Logger logger, ServerImp serverImp) {
 		location = loc;
 		loggerInstance = logger;
+		this.server = serverImp;
 		try {
 			switch (loc) {
 			case MTL:
@@ -45,20 +53,40 @@ public class ServerUDP extends Thread {
 			logger.log(Level.SEVERE, e.getMessage());
 		}
 	}
-	
+
 	@Override
 	public void run() {
-		byte[] receiveData;
-		while (true) {
+		byte[] receiveData,responseData;
+		//call for only 2 other server requests
+		while (c!=2) {
 			try {
 				receiveData = new byte[1024];
+				responseData = new byte[1024];
 				receivePacket = new DatagramPacket(receiveData, receiveData.length);
 				serverSocket.receive(receivePacket);
-				String inputPkt = new String(receivePacket.getData());
-				loggerInstance.log(Level.INFO, "Received "+inputPkt+" from "+location);
+				String inputPkt = new String(receivePacket.getData()).trim();
+				
+				if (inputPkt.equals("GET_RECORD_COUNT")) {
+					System.out.println("GET RECORD COUNT :: "+server.recordsMap.size()+" records in"+location);					
+					responseData = Integer.toString(server.recordsMap.size()).getBytes();
+					serverSocket.send(new DatagramPacket(responseData, responseData.length, receivePacket.getAddress(),
+                            receivePacket.getPort()));
+				}else{
+					System.out.println("Received pkt :: "+inputPkt+" in UDP loc :: "+location);
+					//System.out.println("Before========"+recordsCount);
+					recordsCount=recordsCount+Integer.parseInt(inputPkt);
+					c++;
+					//System.out.println("After========"+recordsCount+"==========="+c);
+				}				
+				loggerInstance.log(Level.INFO, "Received " + inputPkt + " from " + location);
 			} catch (Exception e) {
-				//System.out.println("Exception in UDP Server thread :: "+e.getMessage());
+				System.out.println("Exception in UDP Server thread ::"+e.getMessage());
 			}
 		}
+	}
+	
+	public Integer getValue(){
+		System.out.println("========"+recordsCount);
+		return recordsCount;
 	}
 }
