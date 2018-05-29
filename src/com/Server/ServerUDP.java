@@ -58,7 +58,7 @@ public class ServerUDP extends Thread {
 	public void run() {
 		byte[] receiveData,responseData;
 		//call for only 2 other server requests
-		while (c!=2) {
+		while (c!=Constants.TOTAL_SERVERS_COUNT-1) {
 			try {
 				receiveData = new byte[1024];
 				responseData = new byte[1024];
@@ -73,10 +73,8 @@ public class ServerUDP extends Thread {
                             receivePacket.getPort()));
 				}else{
 					System.out.println("Received pkt :: "+inputPkt+" in UDP loc :: "+location);
-					//System.out.println("Before========"+recordsCount);
 					recordsCount=recordsCount+Integer.parseInt(inputPkt);
 					c++;
-					//System.out.println("After========"+recordsCount+"==========="+c);
 				}				
 				loggerInstance.log(Level.INFO, "Received " + inputPkt + " from " + location);
 			} catch (Exception e) {

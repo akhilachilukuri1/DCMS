@@ -13,5 +13,9 @@ public class Constants {
 	public static String LVL_SERVER_ADDRESS = "localhost";
 	public static String DDO_SERVER_ADDRESS = "localhost";
 
-	public static String LOG_DIR = "F:\\DCMS\\Logs\\";
+	public static int TOTAL_SERVERS_COUNT = 3;
+	
+	public static String PROJECT_DIR = "F:\\DCMS\\";
+	public static String LOG_DIR = PROJECT_DIR+"Logs\\";
+
 }

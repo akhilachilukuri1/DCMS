@@ -77,7 +77,8 @@ public class ClientMain {
 							client.createSRecord(firstNameS, lastNameS, coursesRegistered, status, statusDate));
 					break;
 				case 3:
-					System.out.println(client.getRecordCounts());
+					System.out.println("Total Record Count from all "+Constants.TOTAL_SERVERS_COUNT+" servers is :: "
+							+ client.getRecordCounts());
 					break;
 				case 4:
 					System.out.println("Enter the recordID");

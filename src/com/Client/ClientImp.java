@@ -1,5 +1,6 @@
 package com.Client;
 
+import java.io.File;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -15,6 +16,8 @@ import com.Models.Student;
 import com.Models.Teacher;
 import com.Server.ICenterServer;
 
+/*Implementation of Client class*/
+
 public class ClientImp {
 	static Registry registryMTL;
 	static Registry registryDDO;
@@ -22,17 +25,19 @@ public class ClientImp {
 
 	LogManager logManager = null;
 	ICenterServer iCenterServer = null;
+	
+	//Get the port registered from the registry
 	static {
 		try {
 			registryMTL = LocateRegistry.getRegistry("localhost", Constants.RMI_PORT_NUM_MTL);
 			registryLVL = LocateRegistry.getRegistry("localhost", Constants.RMI_PORT_NUM_LVL);
 			registryDDO = LocateRegistry.getRegistry("localhost", Constants.RMI_PORT_NUM_DDO);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	//Client Implementation constructor
 	ClientImp(ServerCenterLocation location, String ManagerID)
 			throws AccessException, RemoteException, NotBoundException {
 		if (location == ServerCenterLocation.MTL) {
@@ -43,6 +48,7 @@ public class ClientImp {
 			iCenterServer = (ICenterServer) registryDDO.lookup(location.toString());
 		}
 
+		boolean mgrID = new File(Constants.LOG_DIR+ManagerID).mkdir();
 		logManager = new LogManager(ManagerID);
 	}
 
@@ -87,7 +93,6 @@ public class ClientImp {
 		try {
 			studentID = iCenterServer.createSRecord(student);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if (studentID != null)
@@ -104,7 +109,6 @@ public class ClientImp {
 		try {
 			count = iCenterServer.getRecordCount();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		logManager.logger.log(Level.INFO, "received....count as follows");
@@ -118,7 +122,6 @@ public class ClientImp {
 		try {
 			iCenterServer.editRecord(recordID, fieldname, newvalue);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		logManager.logger.log(Level.INFO, message);

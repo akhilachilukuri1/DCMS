@@ -1,5 +1,6 @@
 package com.Conf;
 
+import java.io.File;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -14,8 +15,11 @@ public class LogManager {
         
 		logger = Logger.getLogger(serverName);
 		try {
+			
+			
+			
 			//consoleHandler = new ConsoleHandler();
-			fileHandler = new FileHandler(Constants.LOG_DIR+serverName + ".log",true);
+			fileHandler = new FileHandler(Constants.LOG_DIR+serverName+"\\"+serverName + ".log",true);
 			
 			SimpleFormatter formatter = new SimpleFormatter();
 	        fileHandler.setFormatter(formatter);

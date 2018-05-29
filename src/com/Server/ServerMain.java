@@ -1,5 +1,6 @@
 package com.Server;
 
+import java.io.File;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -31,6 +32,12 @@ public class ServerMain {
 	}
 
 	public static void init(){
+		
+		boolean isMtlDir = new File(Constants.LOG_DIR+ServerCenterLocation.MTL.toString()).mkdir();
+		boolean isLvlDir = new File(Constants.LOG_DIR+ServerCenterLocation.LVL.toString()).mkdir();
+		boolean isDdoDir = new File(Constants.LOG_DIR+ServerCenterLocation.DDO.toString()).mkdir();
+		boolean globalDir = new File(Constants.LOG_DIR+"ServerGlobal").mkdir();
+
 		serverMTL = new ServerImp(ServerCenterLocation.MTL);
 		serverLVL = new ServerImp(ServerCenterLocation.LVL);
 		serverDDO = new ServerImp(ServerCenterLocation.DDO);
