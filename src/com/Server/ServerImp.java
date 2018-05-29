@@ -2,6 +2,7 @@ package com.Server;
 
 import java.net.DatagramPacket;
 import java.net.InetAddress;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +30,7 @@ public class ServerImp implements ICenterServer {
 		logManager = new LogManager(loc.toString());
 		recordsMap = new HashMap<>();
 		this.recordsCount = 0;
-		serverUDP = new ServerUDP(loc, logManager.logger,this);
+		serverUDP = new ServerUDP(loc, logManager.logger, this);
 		serverUDP.start();
 		location = loc.toString();
 		setIPAddress(loc);
@@ -120,7 +121,7 @@ public class ServerImp implements ICenterServer {
 		logManager.logger.log(Level.INFO, "Record Count successful");
 		int totalrecCount = this.recordsMap.size();
 		getOtherServersRecCount();
-		totalrecCount+=this.recordsCount;
+		totalrecCount += this.recordsCount;
 		return Integer.toString(totalrecCount);
 	}
 
@@ -131,51 +132,51 @@ public class ServerImp implements ICenterServer {
 		sendData = askCountPkt.getBytes();
 		serverUDP.sendPacket = new DatagramPacket(sendData, sendData.length);
 		try {
-			sendToOtherServerLoc();	
+			sendToOtherServerLoc();
 			serverUDP.join();
 			int count = serverUDP.getValue();
-			System.out.println("Record count of other servers :: "+count);
+			System.out.println("Record count of other servers :: " + count);
 			this.recordsCount = count;
-			} catch (Exception e) {
-				logManager.logger.log(Level.SEVERE, "Exception in sending GET_RECORD_COUNT Packet" + e.getMessage());
-			}
+		} catch (Exception e) {
+			logManager.logger.log(Level.SEVERE, "Exception in sending GET_RECORD_COUNT Packet" + e.getMessage());
+		}
 	}
 
-	private void sendToOtherServerLoc()throws Exception{
-		switch(location) {
-			case "MTL":
-				// Set the destination host and port
-				serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.LVL_SERVER_ADDRESS));
-				serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_LVL);
-				serverUDP.serverSocket.send(serverUDP.sendPacket);
-				
-				// Set the destination host and port
-				serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.DDO_SERVER_ADDRESS));
-				serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_DDO);
-				serverUDP.serverSocket.send(serverUDP.sendPacket);
-				break;
-			case "LVL":
-				// Set the destination host and port
-				serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.MTL_SERVER_ADDRESS));
-				serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_MTL);
-				serverUDP.serverSocket.send(serverUDP.sendPacket);
-				
-				// Set the destination host and port
-				serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.DDO_SERVER_ADDRESS));
-				serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_DDO);
-				serverUDP.serverSocket.send(serverUDP.sendPacket);
-				break;
-			case "DDO":
-				// Set the destination host and port
-				serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.MTL_SERVER_ADDRESS));
-				serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_MTL);
-				serverUDP.serverSocket.send(serverUDP.sendPacket);
-				
-				// Set the destination host and port
-				serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.LVL_SERVER_ADDRESS));
-				serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_LVL);
-				serverUDP.serverSocket.send(serverUDP.sendPacket);
-				break;
+	private void sendToOtherServerLoc() throws Exception {
+		switch (location) {
+		case "MTL":
+			// Set the destination host and port
+			serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.LVL_SERVER_ADDRESS));
+			serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_LVL);
+			serverUDP.serverSocket.send(serverUDP.sendPacket);
+
+			// Set the destination host and port
+			serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.DDO_SERVER_ADDRESS));
+			serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_DDO);
+			serverUDP.serverSocket.send(serverUDP.sendPacket);
+			break;
+		case "LVL":
+			// Set the destination host and port
+			serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.MTL_SERVER_ADDRESS));
+			serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_MTL);
+			serverUDP.serverSocket.send(serverUDP.sendPacket);
+
+			// Set the destination host and port
+			serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.DDO_SERVER_ADDRESS));
+			serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_DDO);
+			serverUDP.serverSocket.send(serverUDP.sendPacket);
+			break;
+		case "DDO":
+			// Set the destination host and port
+			serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.MTL_SERVER_ADDRESS));
+			serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_MTL);
+			serverUDP.serverSocket.send(serverUDP.sendPacket);
+
+			// Set the destination host and port
+			serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.LVL_SERVER_ADDRESS));
+			serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_LVL);
+			serverUDP.serverSocket.send(serverUDP.sendPacket);
+			break;
 		}
 	}
 
@@ -206,10 +207,7 @@ public class ServerImp implements ICenterServer {
 			List<Record> mylist = value.getValue();
 			Optional<Record> record = mylist.stream().filter(x -> x.getRecordID().equals(recordID)).findFirst();
 
-			if (record.isPresent() && fieldname.equals("CoursesRegistered")) {
-				((Student) record.get()).setCoursesRegistered(newvalue);
-				logManager.logger.log(Level.INFO, "Updated the records\t" + location);
-			} else if (record.isPresent() && fieldname.equals("Status")) {
+			if (record.isPresent() && fieldname.equals("Status")) {
 				((Student) record.get()).setStatus(newvalue);
 				((Student) record.get()).setStatus(null);
 				logManager.logger.log(Level.INFO, "Updated the records\t" + location);
@@ -261,5 +259,21 @@ public class ServerImp implements ICenterServer {
 
 		System.out.println(recordsMap);
 
+	}
+
+	@Override
+	public String editRecordForCourses(String recordID, String fieldName, List<String> newCourses)
+			throws RemoteException {
+		for (Entry<String, List<Record>> value : recordsMap.entrySet()) {
+
+			List<Record> mylist = value.getValue();
+			Optional<Record> record = mylist.stream().filter(x -> x.getRecordID().equals(recordID)).findFirst();
+			if (record.isPresent() && fieldName.equals("CoursesRegistered")) {
+				((Student) record.get()).setCoursesRegistered(newCourses);
+				logManager.logger.log(Level.INFO, "Updated the records\t" + location);
+			}
+		}
+		System.out.println(recordsMap);
+		return null;
 	}
 }

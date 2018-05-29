@@ -6,7 +6,9 @@ import java.io.InputStreamReader;
 import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.Conf.Constants;
 import com.Conf.ServerCenterLocation;
@@ -39,8 +41,8 @@ public class ClientMain {
 				System.out.println("1) Create the Teacher record");
 				System.out.println("2) Create the Student record");
 				System.out.println("3) Get the record count");
-				System.out.println("4)Edit the record");
-				System.out.println("5)logout manager");
+				System.out.println("4) Edit the record");
+				System.out.println("5) Logout manager");
 				Integer choice = Integer.parseInt(br.readLine());
 				switch (choice) {
 				case 1:
@@ -64,33 +66,65 @@ public class ClientMain {
 					String firstNameS = br.readLine();
 					System.out.println("Enter the last name of the student");
 					String lastNameS = br.readLine();
-					System.out.println("Enter the course registered by the student");
-					String coursesRegistered = br.readLine();
-					System.out.println("Enter the status of student");
+					System.out.println("Enter the number of courses registered by the student");
+					int coursesCount = Integer.parseInt(br.readLine());
+					System.out.println("Enter the "+coursesCount+" courses(one per line) registered by the student");
+					List<String> courses = new ArrayList<>();
+					
+					for(int n=0;n<coursesCount;n++){
+						String course = br.readLine();
+						courses.add(course);
+					}
+					
+					System.out.println("Enter the status of student (Active/Inactive)");
 					String status = br.readLine();
 					String statusDate = null;
 					if ((status.toUpperCase().equals("ACTIVE"))) {
-						System.out.println("Enter the date");
+						System.out.println("Enter the date when the student became active(Format :: 29 May 2018)");
 						statusDate = br.readLine();
+					}else if ((status.toUpperCase().equals("INACTIVE"))) {
+						System.out.println("Enter the date when the student became inactive(Format :: 29 May 2018)");
+						statusDate = br.readLine();
+					}else{
+						System.out.println("Status assigned Invalid!");
+						status="Invalid Status";
 					}
 					System.out.println(
-							client.createSRecord(firstNameS, lastNameS, coursesRegistered, status, statusDate));
+							client.createSRecord(firstNameS, lastNameS, courses, status, statusDate));
 					break;
 				case 3:
 					System.out.println("Total Record Count from all "+Constants.TOTAL_SERVERS_COUNT+" servers is :: "
 							+ client.getRecordCounts());
 					break;
 				case 4:
-					System.out.println("Enter the recordID");
+					System.out.println("Enter the Student ID");
 					String recordID = br.readLine();
-					System.out.println("Enter the fieldName");
+					System.out.println("Enter one of the fieldName to be updated (firstName,lastName,CoursesRegistered,status,statusDate)");
 					String fieldName = br.readLine();
-					System.out.println("Enter the newValue of the field");
-					String newValue = br.readLine();
-					System.out.println(client.editRecord(recordID, fieldName, newValue));
+					
+					if(fieldName.equals("CoursesRegistered")){
+						System.out.println("Enter the number of courses registered by the student");
+						coursesCount = Integer.parseInt(br.readLine());
+						System.out.println("Enter the "+coursesCount+" courses(one per line) registered by the student");
+						courses = new ArrayList<>();
+						
+						for(int n=0;n<coursesCount;n++){
+							String course = br.readLine();
+							courses.add(course);
+						}
+						client.editRecordForCourses(recordID, fieldName, courses);
+					}
+					else {
+						System.out.println("Enter the value of the field to be updated");
+						String newValue = br.readLine();
+						System.out.println(client.editRecord(recordID, fieldName, newValue));
+					}
 					break;
 				case 5:
 					i = 0;
+					break;
+				default:
+					System.out.println("Invalid choice! Please try again");
 					break;
 				}
 

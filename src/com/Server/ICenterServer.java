@@ -2,6 +2,7 @@ package com.Server;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 
 import com.Models.Student;
 import com.Models.Teacher;
@@ -17,4 +18,6 @@ public interface ICenterServer extends Remote {
 	public String getRecordCount() throws RemoteException;
 
 	public String editRecord(String recordID,String fieldname,String newvalue) throws RemoteException;
+	
+	public String editRecordForCourses(String recordID,String fieldName,List<String> newValue) throws RemoteException;	
 }

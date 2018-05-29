@@ -3,17 +3,18 @@ package com.Models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Student extends Record implements Serializable {
 	String firstName;
 	String lastName;
-	String CoursesRegistered;
+	List<String> CoursesRegistered;
 	String status;
 	String statusDate;
 	String studentID;
 
 	public Student() {
-
+		CoursesRegistered = new ArrayList<>();
 	}
 
 	public Student(String studentID, String firstName, String lastname) {
@@ -36,12 +37,12 @@ public class Student extends Record implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public String getCoursesRegistered() {
+	public List<String> getCoursesRegistered() {
 		return CoursesRegistered;
 	}
 
-	public void setCoursesRegistered(String newvalue) {
-		CoursesRegistered = newvalue;
+	public void setCoursesRegistered(List<String> courses) {
+		CoursesRegistered = courses;
 	}
 
 	public String isStatus() {

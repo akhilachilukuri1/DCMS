@@ -7,6 +7,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 
 import com.Conf.Constants;
@@ -78,7 +79,7 @@ public class ClientImp {
 		return result;
 	}
 
-	public String createSRecord(String firstName, String lastName, String coursesRegistered, String status,
+	public String createSRecord(String firstName, String lastName, List<String> coursesRegistered, String status,
 			String statusDate) {
 		logManager.logger.log(Level.INFO, "Initiating S record object creation request");
 		String result = "";
@@ -121,6 +122,18 @@ public class ClientImp {
 		logManager.logger.log(Level.INFO, "Initiating the record edit request");
 		try {
 			iCenterServer.editRecord(recordID, fieldname, newvalue);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		logManager.logger.log(Level.INFO, message);
+		return message;
+	}
+	
+	public String editRecordForCourses(String recordID, String fieldname, List<String> newCourses) {
+		String message = "";
+		logManager.logger.log(Level.INFO, "Initiating the record edit request");
+		try {
+			iCenterServer.editRecordForCourses(recordID, fieldname, newCourses);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
