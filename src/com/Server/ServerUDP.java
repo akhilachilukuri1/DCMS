@@ -22,7 +22,7 @@ public class ServerUDP extends Thread {
 	int udpPortNum;
 	ServerCenterLocation location;
 	Logger loggerInstance;
-	volatile int recordsCount = 0;
+	volatile String recordCount;
 	volatile int c = 0;
 	ServerImp server;
 	
@@ -67,13 +67,17 @@ public class ServerUDP extends Thread {
 				String inputPkt = new String(receivePacket.getData()).trim();
 				
 				if (inputPkt.equals("GET_RECORD_COUNT")) {
-					System.out.println("GET RECORD COUNT :: "+server.recordsMap.size()+" records in"+location);					
-					responseData = Integer.toString(server.recordsMap.size()).getBytes();
+					System.out.println("GET RECORD COUNT :: "+server.recordsMap.size()+" records in "+location);	
+					responseData = (location.toString() +" "+ Integer.toString(server.recordsMap.size())).getBytes();
 					serverSocket.send(new DatagramPacket(responseData, responseData.length, receivePacket.getAddress(),
                             receivePacket.getPort()));
 				}else{
 					System.out.println("Received pkt :: "+inputPkt+" in UDP loc :: "+location);
-					recordsCount=recordsCount+Integer.parseInt(inputPkt);
+					if(recordCount!=null){
+						recordCount = recordCount + inputPkt +",";
+					}else{
+						recordCount = inputPkt +",";
+					}
 					c++;
 				}				
 				loggerInstance.log(Level.INFO, "Received " + inputPkt + " from " + location);
@@ -83,8 +87,8 @@ public class ServerUDP extends Thread {
 		}
 	}
 	
-	public Integer getValue(){
-		System.out.println("========"+recordsCount);
-		return recordsCount;
+	public String getValue(){
+		System.out.println("========"+recordCount);
+		return recordCount;
 	}
 }

@@ -23,13 +23,12 @@ public class ServerImp implements ICenterServer {
 	HashMap<String, List<Record>> recordsMap;
 	static int studentCount = 0;
 	static int teacherCount = 0;
-	int recordsCount;
+	String recordsCount;
 	String location;
 
 	public ServerImp(ServerCenterLocation loc) {
 		logManager = new LogManager(loc.toString());
 		recordsMap = new HashMap<>();
-		this.recordsCount = 0;
 		serverUDP = new ServerUDP(loc, logManager.logger, this);
 		serverUDP.start();
 		location = loc.toString();
@@ -119,10 +118,14 @@ public class ServerImp implements ICenterServer {
 	@Override
 	public String getRecordCount() {
 		logManager.logger.log(Level.INFO, "Record Count successful");
-		int totalrecCount = this.recordsMap.size();
+		int t = this.recordsMap.size();
 		getOtherServersRecCount();
-		totalrecCount += this.recordsCount;
-		return Integer.toString(totalrecCount);
+		String totalrecCount;
+		if (this.recordsCount!=null)
+			totalrecCount = this.recordsCount + location +" "+ t;
+		else
+			totalrecCount = location + " "+t;
+		return totalrecCount;
 	}
 
 	private void getOtherServersRecCount() {
@@ -134,9 +137,10 @@ public class ServerImp implements ICenterServer {
 		try {
 			sendToOtherServerLoc();
 			serverUDP.join();
-			int count = serverUDP.getValue();
-			System.out.println("Record count of other servers :: " + count);
-			this.recordsCount = count;
+			String recCount = serverUDP.getValue();
+			
+			System.out.println("Record count of other servers :: " + recCount);
+			this.recordsCount = recCount;
 		} catch (Exception e) {
 			logManager.logger.log(Level.SEVERE, "Exception in sending GET_RECORD_COUNT Packet" + e.getMessage());
 		}
