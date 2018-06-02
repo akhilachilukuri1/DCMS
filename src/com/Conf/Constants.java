@@ -1,5 +1,5 @@
 package com.Conf;
-//setting the port number,IP address,server count and logs path
+
 public class Constants {
 	public static int RMI_PORT_NUM_MTL = 6666;
 	public static int RMI_PORT_NUM_LVL = 1099;
@@ -14,8 +14,8 @@ public class Constants {
 	public static String DDO_SERVER_ADDRESS = "localhost";
 
 	public static int TOTAL_SERVERS_COUNT = 3;
-	
-	public static String PROJECT_DIR = "F:\\DCMS\\";
+	//	C:\Users\akhila\Documents
+	public static String PROJECT_DIR = "C:\\Users\\akhila\\Documents\\DCMS\\";
 	public static String LOG_DIR = PROJECT_DIR+"Logs\\";
 
 }

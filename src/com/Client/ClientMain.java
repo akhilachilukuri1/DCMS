@@ -121,9 +121,22 @@ public class ClientMain {
 					break;
 				case 4:
 					//Edit the record
-					System.out.println("Enter the Student ID");
+					System.out.println("Enter the Record ID");
 					String recordID = br.readLine();
-					System.out.println("Enter one of the fieldName to be updated (firstName,lastName,CoursesRegistered,status,statusDate)");
+					String type =recordID.substring(0, 2);
+					if (type.equals("TR")) {
+						System.out.println("Enter one of the fieldName to be updated (address,phone,location)");
+					}
+					else
+					if (type.equals("SR")) {
+						System.out.println("Enter one of the fieldName to be updated (firstName,lastName,CoursesRegistered,status,statusDate)");
+					}
+					else
+					{
+						System.out.println("wrong record ID !..please try again with correct details!!");
+						continue;
+					}
+					
 					String fieldName = br.readLine();
 					//checking where the field to be edited is CoursesRegistered
 					if(fieldName.equals("CoursesRegistered")){

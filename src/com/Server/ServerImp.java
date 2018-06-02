@@ -213,7 +213,7 @@ public class ServerImp implements ICenterServer {
 
 			if (record.isPresent() && fieldname.equals("Status")) {
 				((Student) record.get()).setStatus(newvalue);
-				((Student) record.get()).setStatus(null);
+				//((Student) record.get()).setStatus(null);
 				logManager.logger.log(Level.INFO, "Updated the records\t" + location);
 			} else if (record.isPresent() && fieldname.equals("StatusDate")) {
 				((Student) record.get()).setStatusDate(newvalue);
