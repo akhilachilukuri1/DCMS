@@ -9,16 +9,21 @@ import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import com.Conf.LogManager;
 
 import com.Conf.Constants;
 import com.Conf.ServerCenterLocation;
 import com.Server.*;
 
 public class ClientMain {
-
+	static LogManager logManager;
+	
+	
 	private ClientMain() {
+		
 	}
 
 	public static void main(String[] args) throws IOException, NotBoundException {
@@ -46,10 +51,13 @@ public class ClientMain {
 				}
 			if (managerID.contains("MTL")) {
 				client = new ClientImp(ServerCenterLocation.MTL, managerID);
+				logManager = new LogManager("MTL");
 			} else if (managerID.contains("LVL")) {
 				client = new ClientImp(ServerCenterLocation.LVL, managerID);
+				logManager = new LogManager("LVL");
 			} else if (managerID.contains("DDO")) {
 				client = new ClientImp(ServerCenterLocation.DDO, managerID);
+				logManager = new LogManager("DDO");
 			} else {
 				System.out.println("wrong manager ID.please enter again");
 				continue;
@@ -72,12 +80,33 @@ public class ClientMain {
 					String lastNameT = br.readLine();
 					System.out.println("Enter the address of the teacher");
 					String addressT = br.readLine();
-					System.out.println("Enter the phone number of the teacher");
-					String phoneT = br.readLine();
+					System.out.println("Enter the Phone number in 123-456-7689 format");
+					String phoneNumber = br.readLine();
+					String phoneT;
+					Pattern pattern = Pattern.compile("\\d{3}-\\d{3}-\\d{4}");
+					Matcher matcher = pattern.matcher(phoneNumber); 
+					 if (matcher.matches()) {
+						 phoneT=phoneNumber;
+					 }else{
+							System.out.println("Invalid phone number ...exiting the program");
+							logManager.logger.log(Level.INFO, "Validation Failed for phone number and exiting the program(ManagerID:" + managerID + ")");
+							break;
+					}
+					
 					System.out.println("Enter the specilization of the teacher");
 					String specilizationT = br.readLine();
-					System.out.println("Enter the location of the teacher");
-					String locationT = br.readLine();
+					System.out.println("Enter the Location(MTL/LVL/DDO)");
+					String location = br.readLine();
+					String locationT;
+					logManager.logger.log(Level.INFO,"Validating the status entered (ManagerID:" + managerID + ")");
+					if (location.equalsIgnoreCase("LVL") || location.equalsIgnoreCase("MTL")|| location.equalsIgnoreCase("DDO")) {
+						locationT = location;
+					} else {
+						System.out.println("Invalid Location ...exiting the program");
+						logManager.logger.log(Level.INFO,
+								"Validation Failed for location and exiting the program(ManagerID:" + managerID + ")");
+						break;
+					}
 					System.out.println(
 							client.createTRecord(firstNameT, lastNameT, addressT, phoneT, specilizationT, locationT));//Initiating teacher record create request
 					break;
@@ -124,12 +153,33 @@ public class ClientMain {
 					System.out.println("Enter the Record ID");
 					String recordID = br.readLine();
 					String type =recordID.substring(0, 2);
-					if (type.equals("TR")) {
-						System.out.println("Enter one of the fieldName to be updated (address,phone,location)");
+					String fieldName=null ;
+					int fieldNum= 0;
+						if (type.equals("TR")) {
+						System.out.println("Enter the  field number  to be updated (1.address 2.phone or 3.location)");
+						fieldNum = Integer.parseInt((br.readLine()));
+						if(fieldNum ==1 ) 
+						fieldName = "Address";
+						else if (fieldNum ==2)
+						fieldName =	"Phone";
+						else if(fieldNum ==3)
+							fieldName ="Location";
+						else
+							System.out.print("Wrong selection of input to edit record");
 					}
 					else
 					if (type.equals("SR")) {
-						System.out.println("Enter one of the fieldName to be updated (firstName,lastName,CoursesRegistered,status,statusDate)");
+						System.out.println("Enter field number to be updated (1.CoursesRegistered 2.status or 3.statusDate)");
+						fieldNum = Integer.parseInt((br.readLine()));
+						if( fieldNum ==1) 
+							fieldName = "CoursesRegistered";
+							else if (fieldNum ==2)
+							fieldName =	"Status";
+							else if(fieldNum ==3)
+							fieldName ="StatusDate";
+							else
+								System.out.print("Wrong selection of input to edit record");
+						
 					}
 					else
 					{
@@ -137,7 +187,7 @@ public class ClientMain {
 						continue;
 					}
 					
-					String fieldName = br.readLine();
+					
 					//checking where the field to be edited is CoursesRegistered
 					if(fieldName.equals("CoursesRegistered")){
 						System.out.println("Enter the number of courses registered by the student");
@@ -154,8 +204,45 @@ public class ClientMain {
 					else {
 						//implementation for editing field other than CoursesRegistered
 						System.out.println("Enter the value of the field to be updated");
-						String newValue = br.readLine();
-						System.out.println(client.editRecord(recordID, fieldName, newValue));
+						String newValue =null;
+						
+						if(fieldName.equals("Phone"))
+						{
+							System.out.println("Enter the new Phone number in 123-456-7689 format");
+							phoneNumber = br.readLine();
+							pattern = Pattern.compile("\\d{3}-\\d{3}-\\d{4}");
+							matcher = pattern.matcher(phoneNumber); 
+							 if (matcher.matches()) {
+								 newValue=phoneNumber;
+							 }else{
+									System.out.println("Invalid new phone number ...exiting the program");
+									logManager.logger.log(Level.INFO, "Validation Failed for new phone number and exiting the program(ManagerID:" + managerID + ")");
+									break;
+							}
+						}
+						
+						else if(fieldName.equals("Location"))
+						{
+							
+							System.out.println("Enter the new Location(MTL/LVL/DDO)");
+							location = br.readLine();
+							
+							if (location.equalsIgnoreCase("LVL") || location.equalsIgnoreCase("MTL")|| location.equalsIgnoreCase("DDO")) {
+								newValue = location;
+							} else {
+								System.out.println("Invalid new Location ...exiting the program");
+								logManager.logger.log(Level.INFO,
+										"Validation Failed for new location and exiting the program(ManagerID:" + managerID + ")");
+								break;
+							}
+							
+						}
+						else
+						{
+							newValue = br.readLine();
+							
+						}
+					System.out.println(client.editRecord(recordID, fieldName, newValue));
 					}
 					break;
 				case 5:

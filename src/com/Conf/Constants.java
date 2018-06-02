@@ -15,7 +15,7 @@ public class Constants {
 
 	public static int TOTAL_SERVERS_COUNT = 3;
 	
-	public static String PROJECT_DIR = "F:\\DCMS\\";
-	public static String LOG_DIR = PROJECT_DIR+"Logs\\";
+	public static String PROJECT_DIR = System.getProperty("user.dir");; //"F:\\DCMS\\";
+	public static String LOG_DIR = PROJECT_DIR+"\\Logs\\";
 
 }

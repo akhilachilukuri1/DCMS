@@ -118,7 +118,15 @@ public class ServerImp implements ICenterServer {
 	@Override
 	public String getRecordCount() {
 		logManager.logger.log(Level.INFO, "Record Count successful");
-		int t = this.recordsMap.size();
+		int t =0;//this.recordsMap.size();
+		
+		for (Entry<String, List<Record>> entry : recordsMap.entrySet()) {
+			List<Record> lst = entry.getValue();
+			long l = lst.stream().distinct().count();
+			t = (int) (t + l);
+
+		}
+
 		getOtherServersRecCount();
 		String totalrecCount;
 		if (this.recordsCount!=null)
@@ -244,8 +252,8 @@ public class ServerImp implements ICenterServer {
 				logManager.logger.log(Level.INFO, "Updated the records\t" + location);
 			}
 
-			else if (record.isPresent() && fieldname.equals("Specialization")) {
-				((Teacher) record.get()).setSpecilization(newvalue);
+			else if (record.isPresent() && fieldname.equals("Address")) {
+				((Teacher) record.get()).setAddress(newvalue);
 				logManager.logger.log(Level.INFO, "Updated the records\t" + location);
 
 			}

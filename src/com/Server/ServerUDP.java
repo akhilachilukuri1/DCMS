@@ -6,6 +6,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -66,9 +67,20 @@ public class ServerUDP extends Thread {
 				serverSocket.receive(receivePacket);
 				String inputPkt = new String(receivePacket.getData()).trim();
 				
+				
 				if (inputPkt.equals("GET_RECORD_COUNT")) {
-					System.out.println("GET RECORD COUNT :: "+server.recordsMap.size()+" records in "+location);	
-					responseData = (location.toString() +" "+ Integer.toString(server.recordsMap.size())).getBytes();
+					
+					int count =0;
+					for (Entry<String, List<Record>> entry : server.recordsMap.entrySet()) {
+						List<Record> lst = entry.getValue();
+						long l = lst.stream().distinct().count();
+						count = (int) (count + l);
+
+					}
+
+					
+					System.out.println("GET RECORD COUNT :: "+count+" records in "+location);	
+					responseData = (location.toString() +" "+ Integer.toString(count)).getBytes();
 					serverSocket.send(new DatagramPacket(responseData, responseData.length, receivePacket.getAddress(),
                             receivePacket.getPort()));
 				}else{
