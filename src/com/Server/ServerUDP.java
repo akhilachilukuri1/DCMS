@@ -67,7 +67,7 @@ public class ServerUDP extends Thread {
 				serverSocket.receive(receivePacket);
 				String inputPkt = new String(receivePacket.getData()).trim();
 				
-				
+				//getting record counts
 				if (inputPkt.equals("GET_RECORD_COUNT")) {
 					
 					int count =0;

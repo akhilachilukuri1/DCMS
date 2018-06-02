@@ -34,7 +34,8 @@ public class ServerImp implements ICenterServer {
 		location = loc.toString();
 		setIPAddress(loc);
 	}
-
+	
+	//getting the location instance
 	private void setIPAddress(ServerCenterLocation loc) {
 		switch (loc) {
 		case MTL:
@@ -49,6 +50,7 @@ public class ServerImp implements ICenterServer {
 		}
 	}
 
+	//Creating teacher records
 	@Override
 	public String createTRecord(Teacher teacher) {
 
@@ -57,6 +59,7 @@ public class ServerImp implements ICenterServer {
 		teacher.setRecordID(teacherid);
 
 		String key = teacher.getLastName().substring(0, 1);
+		//adding the teacher record to HashMap
 		String message = addRecordToHashMap(key, teacher, null);
 
 		System.out.println(recordsMap);
@@ -66,6 +69,7 @@ public class ServerImp implements ICenterServer {
 		return teacherid;
 	}
 
+	//adding the records into HashMap
 	private String addRecordToHashMap(String key, Teacher teacher, Student student) {
 
 		String message = "Error";
@@ -98,6 +102,7 @@ public class ServerImp implements ICenterServer {
 		return message;
 	}
 
+	//creating student record
 	@Override
 	public String createSRecord(Student student) {
 		String studentid = "SR" + (studentCount + 1);
@@ -105,6 +110,7 @@ public class ServerImp implements ICenterServer {
 		student.setStudentID(studentid);
 
 		String key = student.getLastName().substring(0, 1);
+		// adding the student record to HashMap
 		String message = addRecordToHashMap(key, null, student);
 
 		System.out.println(recordsMap);
@@ -115,19 +121,22 @@ public class ServerImp implements ICenterServer {
 		return studentid;
 	}
 
+	//Get the record count in all the hashmaps
 	@Override
 	public String getRecordCount() {
 		logManager.logger.log(Level.INFO, "Record Count successful");
 		int t =0;//this.recordsMap.size();
 		
+		// gettin the record count for current manager location instance
 		for (Entry<String, List<Record>> entry : recordsMap.entrySet()) {
 			List<Record> lst = entry.getValue();
 			long l = lst.stream().distinct().count();
 			t = (int) (t + l);
 
 		}
-
-		getOtherServersRecCount();
+		
+		//getting record count for the other two location instances
+		getOtherServersRecCount();	
 		String totalrecCount;
 		if (this.recordsCount!=null)
 			totalrecCount = this.recordsCount + location +" "+ t;
@@ -135,6 +144,8 @@ public class ServerImp implements ICenterServer {
 			totalrecCount = location + " "+t;
 		return totalrecCount;
 	}
+	
+	//getting record count for the other two location instances using UDP
 
 	private void getOtherServersRecCount() {
 		System.out.println("Getting other servers count");
@@ -192,6 +203,7 @@ public class ServerImp implements ICenterServer {
 		}
 	}
 
+	//Editing student and teacher records
 	@Override
 	public String editRecord(String recordID, String fieldname, String newvalue) {
 		String message = "found and edited";
@@ -210,6 +222,7 @@ public class ServerImp implements ICenterServer {
 		return message;
 	}
 
+	//Editing students records
 	private void editSRRecord(String recordID, String fieldname, String newvalue) {
 
 		System.out.println(recordsMap);
@@ -236,6 +249,7 @@ public class ServerImp implements ICenterServer {
 
 	}
 
+	//Editing Teacher records
 	private void editTRRecord(String recordID, String fieldname, String newvalue) {
 
 		System.out.println(recordsMap);
@@ -273,6 +287,7 @@ public class ServerImp implements ICenterServer {
 
 	}
 
+	// Editing the Students record for courses Registered.
 	@Override
 	public String editRecordForCourses(String recordID, String fieldName, List<String> newCourses)
 			throws RemoteException {
