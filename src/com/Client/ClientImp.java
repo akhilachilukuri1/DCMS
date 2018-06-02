@@ -39,6 +39,7 @@ public class ClientImp {
 	}
 
 	//Client Implementation constructor
+	//Mapping the client instance to the associated server based on the location
 	ClientImp(ServerCenterLocation location, String ManagerID)
 			throws AccessException, RemoteException, NotBoundException {
 		if (location == ServerCenterLocation.MTL) {
@@ -52,7 +53,7 @@ public class ClientImp {
 		boolean mgrID = new File(Constants.LOG_DIR+ManagerID).mkdir();
 		logManager = new LogManager(ManagerID);
 	}
-
+//converting the teacher details given by the manager into a POJO instance and sending to the server
 	public String createTRecord(String firstName, String lastName, String address, String phone, String specilization,
 			String location) {
 		logManager.logger.log(Level.INFO, "Initiating T record object creation request");
@@ -78,7 +79,7 @@ public class ClientImp {
 		logManager.logger.log(Level.INFO, result);
 		return result;
 	}
-
+//converting the student details given by the manager into a POJO instance and sending to the server
 	public String createSRecord(String firstName, String lastName, List<String> coursesRegistered, String status,
 			String statusDate) {
 		logManager.logger.log(Level.INFO, "Initiating S record object creation request");
@@ -103,7 +104,7 @@ public class ClientImp {
 		logManager.logger.log(Level.INFO, result);
 		return result;
 	}
-
+//sending the request for getting the record count in all the servers
 	public String getRecordCounts() {
 		String count = "";
 		logManager.logger.log(Level.INFO, "Initiating record count request");
@@ -116,7 +117,7 @@ public class ClientImp {
 		logManager.logger.log(Level.INFO, count);
 		return count;
 	}
-
+//sending the request for editing the record in the server by giving the new values
 	public String editRecord(String recordID, String fieldname, String newvalue) {
 		String message = "";
 		logManager.logger.log(Level.INFO, "Initiating the record edit request");
@@ -128,7 +129,7 @@ public class ClientImp {
 		logManager.logger.log(Level.INFO, message);
 		return message;
 	}
-	
+//sending the request for editing the courses registered for a given student 
 	public String editRecordForCourses(String recordID, String fieldname, List<String> newCourses) {
 		String message = "";
 		logManager.logger.log(Level.INFO, "Initiating the record edit request");

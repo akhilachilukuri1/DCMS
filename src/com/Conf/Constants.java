@@ -1,5 +1,5 @@
 package com.Conf;
-
+//setting the port number,IP address,server count and logs path
 public class Constants {
 	public static int RMI_PORT_NUM_MTL = 6666;
 	public static int RMI_PORT_NUM_LVL = 1099;

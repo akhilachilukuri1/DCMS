@@ -9,6 +9,8 @@ import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.Conf.Constants;
 import com.Conf.ServerCenterLocation;
@@ -22,9 +24,26 @@ public class ClientMain {
 	public static void main(String[] args) throws IOException, NotBoundException {
 		while (true) {
 			ClientImp client = null;
+			Pattern validate=Pattern.compile("([0-9]*)");
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("enter the managerID");
-			String managerID = br.readLine();
+			String managerID = br.readLine();//getting the Manager ID
+			String manager_number=managerID.substring(3, 6);
+			Matcher matchID=validate.matcher(manager_number);
+			
+			
+			if(managerID.length()!=7)//validating the length of the managerID
+			{
+				
+				System.out.println("Too many characters in the manager ID. please enter in (LOCXXXX) format, where LOC={MTL,DDO,LVL}");
+				continue;	
+			}
+			else
+				if(!matchID.matches())//validating the charaters of the manager ID
+				{
+					System.out.println("Invalid character in MangerID.please enter in (LOCXXXX) format,where XXXX can only be numbers");
+					continue;
+				}
 			if (managerID.contains("MTL")) {
 				client = new ClientImp(ServerCenterLocation.MTL, managerID);
 			} else if (managerID.contains("LVL")) {
@@ -43,9 +62,10 @@ public class ClientMain {
 				System.out.println("3) Get the record count");
 				System.out.println("4) Edit the record");
 				System.out.println("5) Logout manager");
-				Integer choice = Integer.parseInt(br.readLine());
+				Integer choice = Integer.parseInt(br.readLine());//getting the manager choice
 				switch (choice) {
 				case 1:
+					//Create the Teacher record
 					System.out.println("Enter the first name of the teacher");
 					String firstNameT = br.readLine();
 					System.out.println("Enter the last name of the teacher");
@@ -59,9 +79,10 @@ public class ClientMain {
 					System.out.println("Enter the location of the teacher");
 					String locationT = br.readLine();
 					System.out.println(
-							client.createTRecord(firstNameT, lastNameT, addressT, phoneT, specilizationT, locationT));
+							client.createTRecord(firstNameT, lastNameT, addressT, phoneT, specilizationT, locationT));//Initiating teacher record create request
 					break;
 				case 2:
+					//Create the Student record
 					System.out.println("Enter the first name of the student");
 					String firstNameS = br.readLine();
 					System.out.println("Enter the last name of the student");
@@ -73,12 +94,13 @@ public class ClientMain {
 					
 					for(int n=0;n<coursesCount;n++){
 						String course = br.readLine();
-						courses.add(course);
+						courses.add(course);//getting all the courses enrolled ny the student
 					}
 					
 					System.out.println("Enter the status of student (Active/Inactive)");
 					String status = br.readLine();
 					String statusDate = null;
+					//validating the status of the student
 					if ((status.toUpperCase().equals("ACTIVE"))) {
 						System.out.println("Enter the date when the student became active(Format :: 29 May 2018)");
 						statusDate = br.readLine();
@@ -93,15 +115,17 @@ public class ClientMain {
 							client.createSRecord(firstNameS, lastNameS, courses, status, statusDate));
 					break;
 				case 3:
+					//Get the record count
 					System.out.println("Total Record Count from all "+Constants.TOTAL_SERVERS_COUNT+" servers is :: "
-							+ client.getRecordCounts());
+							+ client.getRecordCounts());//Initiating the total record count request in the server
 					break;
 				case 4:
+					//Edit the record
 					System.out.println("Enter the Student ID");
 					String recordID = br.readLine();
 					System.out.println("Enter one of the fieldName to be updated (firstName,lastName,CoursesRegistered,status,statusDate)");
 					String fieldName = br.readLine();
-					
+					//checking where the field to be edited is CoursesRegistered
 					if(fieldName.equals("CoursesRegistered")){
 						System.out.println("Enter the number of courses registered by the student");
 						coursesCount = Integer.parseInt(br.readLine());
@@ -115,13 +139,15 @@ public class ClientMain {
 						client.editRecordForCourses(recordID, fieldName, courses);
 					}
 					else {
+						//implementation for editing field other than CoursesRegistered
 						System.out.println("Enter the value of the field to be updated");
 						String newValue = br.readLine();
 						System.out.println(client.editRecord(recordID, fieldName, newValue));
 					}
 					break;
 				case 5:
-					i = 0;
+					//Logout manager
+					i = 0;//logout
 					break;
 				default:
 					System.out.println("Invalid choice! Please try again");

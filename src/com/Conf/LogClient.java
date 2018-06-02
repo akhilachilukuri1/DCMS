@@ -15,15 +15,13 @@ public class LogClient {
 		logger = Logger.getLogger(ManagerID);
 		try {
 			consoleHandler = new ConsoleHandler();
-			fileHandler = new FileHandler(ManagerID + ".log");
-			
+			fileHandler = new FileHandler(ManagerID + ".log");//creating the client log file with managerID
+			//configuring the logger
 			logger.addHandler(consoleHandler);
 			logger.addHandler(fileHandler);
-			
 			consoleHandler.setLevel(Level.ALL);
 			fileHandler.setLevel(Level.ALL);
 			logger.setLevel(Level.ALL);
-			
 			logger.config("Logger configuration done!");
 			
 		} catch (Exception e) {

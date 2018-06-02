@@ -9,7 +9,7 @@ import com.Models.Teacher;
 
 public interface ICenterServer extends Remote {
 
-	// String sayHello() throws RemoteException;
+	//Functionality that every server instance should implement
 
 	public String createTRecord(Teacher teacher) throws RemoteException;
 

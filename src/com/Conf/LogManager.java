@@ -16,21 +16,12 @@ public class LogManager {
 		logger = Logger.getLogger(serverName);
 		try {
 			
-			
-			
-			//consoleHandler = new ConsoleHandler();
-			fileHandler = new FileHandler(Constants.LOG_DIR+serverName+"\\"+serverName + ".log",true);
-			
+			fileHandler = new FileHandler(Constants.LOG_DIR+serverName+"\\"+serverName + ".log",true);//creating the server log with server name
 			SimpleFormatter formatter = new SimpleFormatter();
 	        fileHandler.setFormatter(formatter);
-	        
+	      //configuring the logger
 	        logger.setUseParentHandlers(false);
-
-			//logger.addHandler(consoleHandler);
 			logger.addHandler(fileHandler);	
-			
-			//consoleHandler.setLevel(Level.ALL);
-			//fileHandler.setLevel(Level.ALL);
 			logger.setLevel(Level.INFO);	
 			
 		} catch (Exception e) {
