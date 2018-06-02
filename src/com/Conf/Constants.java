@@ -14,8 +14,8 @@ public class Constants {
 	public static String DDO_SERVER_ADDRESS = "localhost";
 
 	public static int TOTAL_SERVERS_COUNT = 3;
-	//	C:\Users\akhila\Documents
-	public static String PROJECT_DIR = "C:\\Users\\akhila\\Documents\\DCMS\\";
+	
+	public static String PROJECT_DIR = "F:\\DCMS\\";
 	public static String LOG_DIR = PROJECT_DIR+"Logs\\";
 
 }
