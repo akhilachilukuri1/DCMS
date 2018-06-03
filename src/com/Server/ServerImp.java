@@ -1,13 +1,11 @@
 package com.Server;
 
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.logging.Level;
 import com.Conf.Constants;
 import com.Conf.LogManager;
@@ -15,6 +13,7 @@ import com.Conf.ServerCenterLocation;
 import com.Models.Record;
 import com.Models.Student;
 import com.Models.Teacher;
+import com.Server.UDPRequestProvider;
 
 public class ServerImp implements ICenterServer {
 	LogManager logManager;
@@ -30,7 +29,6 @@ public class ServerImp implements ICenterServer {
 		logManager = new LogManager(loc.toString());
 		recordsMap = new HashMap<>();
 		serverUDP = new ServerUDP(loc, logManager.logger, this);
-		System.out.println("Passing server instance :: "+this + loc);
 		serverUDP.start();
 		location = loc.toString();
 		setIPAddress(loc);
@@ -122,92 +120,48 @@ public class ServerImp implements ICenterServer {
 		return studentid;
 	}
 
-	// Get the record count in all the hashmaps
-	@Override
+	private int getCurrServerCnt(){
+		int count = 0;
+		for (Map.Entry<String, List<Record>> entry : this.recordsMap.entrySet()) {
+			List<Record> list = entry.getValue();
+			count+=list.size();
+			System.out.println(entry.getKey()+" "+list.size());
+		}
+		return count;
+	}
+
 	public String getRecordCount() {
-		logManager.logger.log(Level.INFO, "Record Count successful");
-		int t = 0;// this.recordsMap.size();
-
-		// gettin the record count for current manager location instance
-		for (Entry<String, List<Record>> entry : recordsMap.entrySet()) {
-			List<Record> lst = entry.getValue();
-			long l = lst.stream().distinct().count();
-			t = (int) (t + l);
-
-		}
-		
-		// getting record count for the other two location instances
-		getOtherServersRecCount();
-		String totalrecCount;
-		if (this.recordsCount != null)
-			totalrecCount = this.recordsCount + location + " " + t;
-		else
-			totalrecCount = location + " " + t;
-		return totalrecCount;
-	}
-
-	// getting record count for the other two location instances using UDP
-
-	private synchronized void getOtherServersRecCount() {
-		System.out.println("Getting other servers count");
-		String askCountPkt = "GET_RECORD_COUNT";
-		byte[] sendData = new byte[1024];
-		sendData = askCountPkt.getBytes();
-		serverUDP.sendPacket = new DatagramPacket(sendData, sendData.length);
-		try {
-			sendToOtherServerLoc();
-			serverUDP.join();
-			String recCount = serverUDP.getValue();
-			System.out.println("Record count of other servers :: " + recCount);
-			this.recordsCount = recCount;
-		} catch (Exception e) {
-			logManager.logger.log(Level.SEVERE, "Exception in sending GET_RECORD_COUNT Packet" + e.getMessage());
-		}
-	}
-
-	private synchronized void sendToOtherServerLoc() throws Exception {
-		switch (location) {
-		case "MTL":
-			// Set the destination host and port
-			System.out.println("Sending pkt from MTL  to LVL:: "+serverUDP.sendPacket);
-			serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.LVL_SERVER_ADDRESS));
-			serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_LVL);
-			serverUDP.serverSocket.send(serverUDP.sendPacket);
-
-			// Set the destination host and port
-			System.out.println("Sending pkt from MTL  to DDO:: "+serverUDP.sendPacket);
-			serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.DDO_SERVER_ADDRESS));
-			serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_DDO);
-			serverUDP.serverSocket.send(serverUDP.sendPacket);
-			break;
-		case "LVL":
-			// Set the destination host and port
-			serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.MTL_SERVER_ADDRESS));
-			serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_MTL);
-			System.out.println("Sending pkt from LVL  to MTL:: "+serverUDP.sendPacket);
-			serverUDP.serverSocket.send(serverUDP.sendPacket);
-
-			// Set the destination host and port
-			System.out.println("Sending pkt from LVL  to DDO:: "+serverUDP.sendPacket);
-			serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.DDO_SERVER_ADDRESS));
-			serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_DDO);
-			serverUDP.serverSocket.send(serverUDP.sendPacket);
-			break;
-		case "DDO":
-			// Set the destination host and port
-			System.out.println("Sending pkt from DDO  to MTL:: "+serverUDP.sendPacket);
-			serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.MTL_SERVER_ADDRESS));
-			serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_MTL);
-			serverUDP.serverSocket.send(serverUDP.sendPacket);
-
-			// Set the destination host and port
-			System.out.println("Sending pkt from DDO  to LVL:: "+serverUDP.sendPacket);
-			serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.LVL_SERVER_ADDRESS));
-			serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_LVL);
-			serverUDP.serverSocket.send(serverUDP.sendPacket);
-			break;
-		}
-	}
+        String recordCount = null;
+        UDPRequestProvider[] req = new UDPRequestProvider[2];
+        int cntr = 0;
+        ArrayList<String> locList = new ArrayList<>();
+        locList.add("MTL");
+        locList.add("LVL");
+        locList.add("DDO");
+        for (String loc : locList) {
+            if (loc== this.location) {
+                recordCount = loc+","+getCurrServerCnt();
+            } else {
+                try {
+                	req[cntr] = new UDPRequestProvider(ServerMain.serverRepo.get(loc));
+                } catch (IOException e) {
+                    logManager.logger.log(Level.SEVERE, e.getMessage());
+                }
+                req[cntr].start();
+                cntr++;
+            }
+        }
+        for (UDPRequestProvider request : req) {
+            try {
+                request.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            recordCount += " , " + request.getRemoteRecordCount().trim();
+        }
+        return recordCount;
+    }
+	
 
 	// Editing student and teacher records
 	@Override

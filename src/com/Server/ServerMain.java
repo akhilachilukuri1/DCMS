@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.HashMap;
 import java.util.logging.Level;
 
 import com.Conf.Constants;
@@ -15,6 +16,7 @@ public class ServerMain {
 
 	static ICenterServer stubMTL, stubLVL, stubDDO;
 	static ServerImp serverMTL,serverLVL,serverDDO;
+	static HashMap<String,ServerImp> serverRepo;
 
 	public static void main(String args[]) {
 
@@ -41,6 +43,10 @@ public class ServerMain {
 		serverMTL = new ServerImp(ServerCenterLocation.MTL);
 		serverLVL = new ServerImp(ServerCenterLocation.LVL);
 		serverDDO = new ServerImp(ServerCenterLocation.DDO);
+		serverRepo = new HashMap<>();
+		serverRepo.put("MTL",serverMTL);
+		serverRepo.put("LVL",serverLVL);
+		serverRepo.put("DDO",serverDDO);
 	}
 	
 	public static void createRemoteObj() {
