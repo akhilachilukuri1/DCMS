@@ -157,7 +157,17 @@ public class ClientMain {
 					int fieldNum= 0;
 						if (type.equals("TR")) {
 						System.out.println("Enter the  field number  to be updated (1.address 2.phone or 3.location)");
+						try
+						{
+							
+						
 						fieldNum = Integer.parseInt((br.readLine()));
+						}
+						catch(NumberFormatException e)
+						{
+							System.out.println("wrong field number!!...please try again");
+							continue;
+						}
 						if(fieldNum ==1 ) 
 						fieldName = "Address";
 						else if (fieldNum ==2)

@@ -1,0 +1,18 @@
+Jun 02, 2018 10:06:40 PM com.Client.ClientImp createTRecord
+INFO: Initiating T record object creation request
+Jun 02, 2018 10:06:40 PM com.Client.ClientImp createTRecord
+INFO: Teacher record is created and assigned with TR1
+Jun 02, 2018 10:06:57 PM com.Client.ClientImp createSRecord
+INFO: Initiating S record object creation request
+Jun 02, 2018 10:06:57 PM com.Client.ClientImp createSRecord
+INFO: student record is created and assigned with SR1
+Jun 02, 2018 10:07:11 PM com.Client.ClientImp getRecordCounts
+INFO: Initiating record count request
+Jun 02, 2018 10:07:11 PM com.Client.ClientImp getRecordCounts
+INFO: received....count as follows
+Jun 02, 2018 10:07:11 PM com.Client.ClientImp getRecordCounts
+INFO: DDO 0,LVL 0,MTL 2
+Jun 02, 2018 10:07:27 PM com.Client.ClientImp editRecord
+INFO: Initiating the record edit request
+Jun 02, 2018 10:07:27 PM com.Client.ClientImp editRecord
+INFO: 

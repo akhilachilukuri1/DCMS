@@ -24,7 +24,7 @@ public class ServerUDP extends Thread {
 	ServerCenterLocation location;
 	Logger loggerInstance;
 	volatile String recordCount;
-	volatile int c = 0;
+	volatile int pktCnt = 1;
 	ServerImp server;
 	
 	public ServerUDP(ServerCenterLocation loc, Logger logger, ServerImp serverImp) {
@@ -56,51 +56,54 @@ public class ServerUDP extends Thread {
 	}
 
 	@Override
-	public void run() {
+	public synchronized void run() {
 		byte[] receiveData,responseData;
+		System.out.println(pktCnt);
 		//call for only 2 other server requests
-		while (c!=Constants.TOTAL_SERVERS_COUNT-1) {
+		while (pktCnt!=3) {
 			try {
 				receiveData = new byte[1024];
 				responseData = new byte[1024];
 				receivePacket = new DatagramPacket(receiveData, receiveData.length);
 				serverSocket.receive(receivePacket);
 				String inputPkt = new String(receivePacket.getData()).trim();
-				
+				System.out.println("************"+new String(receivePacket.getData()));
 				//getting record counts
 				if (inputPkt.equals("GET_RECORD_COUNT")) {
-					
+					System.out.println(pktCnt+"============"+server.recordsMap.size()+"============"+location);
 					int count =0;
 					for (Entry<String, List<Record>> entry : server.recordsMap.entrySet()) {
 						List<Record> lst = entry.getValue();
 						long l = lst.stream().distinct().count();
 						count = (int) (count + l);
-
 					}
-
-					
+					pktCnt++;
+					System.out.println("Incremented pkt cnt to :: "+pktCnt);
 					System.out.println("GET RECORD COUNT :: "+count+" records in "+location);	
 					responseData = (location.toString() +" "+ Integer.toString(count)).getBytes();
 					serverSocket.send(new DatagramPacket(responseData, responseData.length, receivePacket.getAddress(),
                             receivePacket.getPort()));
-				}else{
+				}else {
 					System.out.println("Received pkt :: "+inputPkt+" in UDP loc :: "+location);
 					if(recordCount!=null){
 						recordCount = recordCount + inputPkt +",";
 					}else{
 						recordCount = inputPkt +",";
 					}
-					c++;
+					pktCnt++;
+					System.out.println("Incremented pkt cnt to :: "+pktCnt);
 				}				
 				loggerInstance.log(Level.INFO, "Received " + inputPkt + " from " + location);
 			} catch (Exception e) {
-				System.out.println("Exception in UDP Server thread ::"+e.getMessage());
+				//System.out.println("Exception in UDP Server thread ::"+e.getMessage());
 			}
 		}
+		pktCnt = 1;
 	}
 	
 	public String getValue(){
 		System.out.println("========"+recordCount);
+		pktCnt = 1;
 		return recordCount;
 	}
 }

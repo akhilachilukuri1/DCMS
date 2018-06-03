@@ -6,3 +6,247 @@ Jun 02, 2018 4:29:49 PM com.Server.ServerUDP <init>
 INFO: LVL UDP Server Started
 Jun 02, 2018 4:34:09 PM com.Server.ServerUDP run
 INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 9:07:22 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 9:09:24 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 9:16:54 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 9:21:49 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 9:31:32 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 9:32:23 PM com.Server.ServerImp createTRecord
+INFO: Teacher record created TR1
+Jun 02, 2018 9:32:40 PM com.Server.ServerImp editTRRecord
+INFO: Records not found	LVL
+Jun 02, 2018 9:32:40 PM com.Server.ServerImp editRecord
+INFO: Record edit successful
+Jun 02, 2018 9:33:01 PM com.Server.ServerImp editTRRecord
+INFO: Updated the records	LVL
+Jun 02, 2018 9:33:01 PM com.Server.ServerImp editRecord
+INFO: Record edit successful
+Jun 02, 2018 9:33:52 PM com.Server.ServerImp editTRRecord
+INFO: Updated the records	LVL
+Jun 02, 2018 9:33:52 PM com.Server.ServerImp editRecord
+INFO: Record edit successful
+Jun 02, 2018 9:34:19 PM com.Server.ServerImp getRecordCount
+INFO: Record Count successful
+Jun 02, 2018 9:34:19 PM com.Server.ServerUDP run
+INFO: Received DDO 0 from LVL
+Jun 02, 2018 9:34:19 PM com.Server.ServerUDP run
+INFO: Received MTL 0 from LVL
+Jun 02, 2018 9:34:42 PM com.Server.ServerImp editTRRecord
+INFO: Updated the records	LVL
+Jun 02, 2018 9:34:42 PM com.Server.ServerImp editRecord
+INFO: Record edit successful
+Jun 02, 2018 9:36:29 PM com.Server.ServerImp createSRecord
+INFO: Student record created SR1
+Jun 02, 2018 9:37:59 PM com.Server.ServerImp createSRecord
+INFO: Student record created SR1
+Jun 02, 2018 9:38:05 PM com.Server.ServerImp getRecordCount
+INFO: Record Count successful
+Jun 02, 2018 9:39:41 PM com.Server.ServerImp editTRRecord
+INFO: Records not found	LVL
+Jun 02, 2018 9:39:41 PM com.Server.ServerImp editTRRecord
+INFO: Updated the records	LVL
+Jun 02, 2018 9:39:41 PM com.Server.ServerImp editRecord
+INFO: Record edit successful
+Jun 02, 2018 9:41:13 PM com.Server.ServerImp editSRRecord
+INFO: Updated the records	LVL
+Jun 02, 2018 9:41:13 PM com.Server.ServerImp editSRRecord
+INFO: Records not found	LVL
+Jun 02, 2018 9:41:13 PM com.Server.ServerImp editRecord
+INFO: Record edit successful
+Jun 02, 2018 9:43:34 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 9:50:14 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 9:58:21 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 9:59:34 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 10:02:30 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 10:03:35 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 10:06:01 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 10:07:11 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 10:22:46 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 10:23:00 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 10:24:38 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 10:27:15 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 10:29:21 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 10:29:38 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 10:30:12 PM com.Server.ServerImp createTRecord
+INFO: Teacher record created TR2
+Jun 02, 2018 10:30:29 PM com.Server.ServerImp createTRecord
+INFO: Teacher record created TR3
+Jun 02, 2018 10:30:31 PM com.Server.ServerImp getRecordCount
+INFO: Record Count successful
+Jun 02, 2018 10:30:31 PM com.Server.ServerUDP run
+INFO: Received DDO 0 from LVL
+Jun 02, 2018 10:39:53 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 10:41:02 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 10:41:13 PM com.Server.ServerImp getRecordCount
+INFO: Record Count successful
+Jun 02, 2018 10:41:13 PM com.Server.ServerUDP run
+INFO: Received DDO 0 from LVL
+Jun 02, 2018 10:43:59 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 10:44:30 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 10:44:53 PM com.Server.ServerImp createTRecord
+INFO: Teacher record created TR2
+Jun 02, 2018 10:44:55 PM com.Server.ServerImp getRecordCount
+INFO: Record Count successful
+Jun 02, 2018 10:44:55 PM com.Server.ServerUDP run
+INFO: Received DDO 0 from LVL
+Jun 02, 2018 10:48:54 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 10:50:41 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 10:51:05 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 10:52:08 PM com.Server.ServerImp createTRecord
+INFO: Teacher record created TR2
+Jun 02, 2018 10:52:11 PM com.Server.ServerImp getRecordCount
+INFO: Record Count successful
+Jun 02, 2018 10:52:11 PM com.Server.ServerUDP run
+INFO: Received DDO 0 from LVL
+Jun 02, 2018 10:53:15 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 10:53:37 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 10:53:44 PM com.Server.ServerImp getRecordCount
+INFO: Record Count successful
+Jun 02, 2018 10:53:44 PM com.Server.ServerUDP run
+INFO: Received DDO 0 from LVL
+Jun 02, 2018 10:55:20 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 10:55:42 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 10:59:05 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 10:59:24 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 10:59:32 PM com.Server.ServerImp getRecordCount
+INFO: Record Count successful
+Jun 02, 2018 10:59:32 PM com.Server.ServerUDP run
+INFO: Received DDO 0 from LVL
+Jun 02, 2018 11:03:21 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 11:03:40 PM com.Server.ServerImp createTRecord
+INFO: Teacher record created TR1
+Jun 02, 2018 11:03:41 PM com.Server.ServerImp getRecordCount
+INFO: Record Count successful
+Jun 02, 2018 11:03:41 PM com.Server.ServerUDP run
+INFO: Received MTL 0 from LVL
+Jun 02, 2018 11:03:41 PM com.Server.ServerUDP run
+INFO: Received DDO 0 from LVL
+Jun 02, 2018 11:06:47 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 11:07:16 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 11:07:23 PM com.Server.ServerImp getRecordCount
+INFO: Record Count successful
+Jun 02, 2018 11:07:23 PM com.Server.ServerUDP run
+INFO: Received DDO 0 from LVL
+Jun 02, 2018 11:07:56 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 11:08:41 PM com.Server.ServerImp createTRecord
+INFO: Teacher record created TR2
+Jun 02, 2018 11:08:43 PM com.Server.ServerImp getRecordCount
+INFO: Record Count successful
+Jun 02, 2018 11:08:43 PM com.Server.ServerUDP run
+INFO: Received MTL 1 from LVL
+Jun 02, 2018 11:08:43 PM com.Server.ServerUDP run
+INFO: Received DDO 0 from LVL
+Jun 02, 2018 11:13:25 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 11:13:44 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 11:13:53 PM com.Server.ServerImp getRecordCount
+INFO: Record Count successful
+Jun 02, 2018 11:13:53 PM com.Server.ServerUDP run
+INFO: Received DDO 0 from LVL
+Jun 02, 2018 11:15:44 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 11:16:07 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 11:16:18 PM com.Server.ServerImp getRecordCount
+INFO: Record Count successful
+Jun 02, 2018 11:16:18 PM com.Server.ServerUDP run
+INFO: Received DDO 0 from LVL
+Jun 02, 2018 11:26:20 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 11:26:43 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 11:27:42 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 11:28:02 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 11:28:39 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 11:28:57 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 11:29:49 PM com.Server.ServerImp getRecordCount
+INFO: Record Count successful
+Jun 02, 2018 11:29:49 PM com.Server.ServerUDP run
+INFO: Received DDO 0 from LVL
+Jun 02, 2018 11:31:31 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 11:31:52 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 11:32:21 PM com.Server.ServerImp getRecordCount
+INFO: Record Count successful
+Jun 02, 2018 11:33:13 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 11:33:37 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 11:36:16 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 11:36:55 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 11:37:55 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 11:38:15 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 11:38:59 PM com.Server.ServerImp getRecordCount
+INFO: Record Count successful
+Jun 02, 2018 11:38:59 PM com.Server.ServerUDP run
+INFO: Received DDO 0 from LVL
+Jun 02, 2018 11:43:28 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 11:43:49 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 11:51:02 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 11:51:23 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 11:52:20 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 11:52:45 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 11:53:55 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 11:54:15 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 02, 2018 11:54:22 PM com.Server.ServerImp getRecordCount
+INFO: Record Count successful
+Jun 02, 2018 11:54:22 PM com.Server.ServerUDP run
+INFO: Received DDO 0 from LVL
+Jun 02, 2018 11:59:22 PM com.Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 02, 2018 11:59:41 PM com.Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL

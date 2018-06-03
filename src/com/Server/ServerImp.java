@@ -30,12 +30,13 @@ public class ServerImp implements ICenterServer {
 		logManager = new LogManager(loc.toString());
 		recordsMap = new HashMap<>();
 		serverUDP = new ServerUDP(loc, logManager.logger, this);
+		System.out.println("Passing server instance :: "+this + loc);
 		serverUDP.start();
 		location = loc.toString();
 		setIPAddress(loc);
 	}
-	
-	//getting the location instance
+
+	// getting the location instance
 	private void setIPAddress(ServerCenterLocation loc) {
 		switch (loc) {
 		case MTL:
@@ -50,7 +51,7 @@ public class ServerImp implements ICenterServer {
 		}
 	}
 
-	//Creating teacher records
+	// Creating teacher records
 	@Override
 	public String createTRecord(Teacher teacher) {
 
@@ -59,7 +60,7 @@ public class ServerImp implements ICenterServer {
 		teacher.setRecordID(teacherid);
 
 		String key = teacher.getLastName().substring(0, 1);
-		//adding the teacher record to HashMap
+		// adding the teacher record to HashMap
 		String message = addRecordToHashMap(key, teacher, null);
 
 		System.out.println(recordsMap);
@@ -69,7 +70,7 @@ public class ServerImp implements ICenterServer {
 		return teacherid;
 	}
 
-	//adding the records into HashMap
+	// adding the records into HashMap
 	private String addRecordToHashMap(String key, Teacher teacher, Student student) {
 
 		String message = "Error";
@@ -102,7 +103,7 @@ public class ServerImp implements ICenterServer {
 		return message;
 	}
 
-	//creating student record
+	// creating student record
 	@Override
 	public String createSRecord(Student student) {
 		String studentid = "SR" + (studentCount + 1);
@@ -121,12 +122,12 @@ public class ServerImp implements ICenterServer {
 		return studentid;
 	}
 
-	//Get the record count in all the hashmaps
+	// Get the record count in all the hashmaps
 	@Override
 	public String getRecordCount() {
 		logManager.logger.log(Level.INFO, "Record Count successful");
-		int t =0;//this.recordsMap.size();
-		
+		int t = 0;// this.recordsMap.size();
+
 		// gettin the record count for current manager location instance
 		for (Entry<String, List<Record>> entry : recordsMap.entrySet()) {
 			List<Record> lst = entry.getValue();
@@ -135,19 +136,19 @@ public class ServerImp implements ICenterServer {
 
 		}
 		
-		//getting record count for the other two location instances
-		getOtherServersRecCount();	
+		// getting record count for the other two location instances
+		getOtherServersRecCount();
 		String totalrecCount;
-		if (this.recordsCount!=null)
-			totalrecCount = this.recordsCount + location +" "+ t;
+		if (this.recordsCount != null)
+			totalrecCount = this.recordsCount + location + " " + t;
 		else
-			totalrecCount = location + " "+t;
+			totalrecCount = location + " " + t;
 		return totalrecCount;
 	}
-	
-	//getting record count for the other two location instances using UDP
 
-	private void getOtherServersRecCount() {
+	// getting record count for the other two location instances using UDP
+
+	private synchronized void getOtherServersRecCount() {
 		System.out.println("Getting other servers count");
 		String askCountPkt = "GET_RECORD_COUNT";
 		byte[] sendData = new byte[1024];
@@ -157,7 +158,6 @@ public class ServerImp implements ICenterServer {
 			sendToOtherServerLoc();
 			serverUDP.join();
 			String recCount = serverUDP.getValue();
-			
 			System.out.println("Record count of other servers :: " + recCount);
 			this.recordsCount = recCount;
 		} catch (Exception e) {
@@ -165,15 +165,17 @@ public class ServerImp implements ICenterServer {
 		}
 	}
 
-	private void sendToOtherServerLoc() throws Exception {
+	private synchronized void sendToOtherServerLoc() throws Exception {
 		switch (location) {
 		case "MTL":
 			// Set the destination host and port
+			System.out.println("Sending pkt from MTL  to LVL:: "+serverUDP.sendPacket);
 			serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.LVL_SERVER_ADDRESS));
 			serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_LVL);
 			serverUDP.serverSocket.send(serverUDP.sendPacket);
 
 			// Set the destination host and port
+			System.out.println("Sending pkt from MTL  to DDO:: "+serverUDP.sendPacket);
 			serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.DDO_SERVER_ADDRESS));
 			serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_DDO);
 			serverUDP.serverSocket.send(serverUDP.sendPacket);
@@ -182,20 +184,24 @@ public class ServerImp implements ICenterServer {
 			// Set the destination host and port
 			serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.MTL_SERVER_ADDRESS));
 			serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_MTL);
+			System.out.println("Sending pkt from LVL  to MTL:: "+serverUDP.sendPacket);
 			serverUDP.serverSocket.send(serverUDP.sendPacket);
 
 			// Set the destination host and port
+			System.out.println("Sending pkt from LVL  to DDO:: "+serverUDP.sendPacket);
 			serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.DDO_SERVER_ADDRESS));
 			serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_DDO);
 			serverUDP.serverSocket.send(serverUDP.sendPacket);
 			break;
 		case "DDO":
 			// Set the destination host and port
+			System.out.println("Sending pkt from DDO  to MTL:: "+serverUDP.sendPacket);
 			serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.MTL_SERVER_ADDRESS));
 			serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_MTL);
 			serverUDP.serverSocket.send(serverUDP.sendPacket);
 
 			// Set the destination host and port
+			System.out.println("Sending pkt from DDO  to LVL:: "+serverUDP.sendPacket);
 			serverUDP.sendPacket.setAddress(InetAddress.getByName(Constants.LVL_SERVER_ADDRESS));
 			serverUDP.sendPacket.setPort(Constants.UDP_PORT_NUM_LVL);
 			serverUDP.serverSocket.send(serverUDP.sendPacket);
@@ -203,27 +209,26 @@ public class ServerImp implements ICenterServer {
 		}
 	}
 
-	//Editing student and teacher records
+	// Editing student and teacher records
 	@Override
 	public String editRecord(String recordID, String fieldname, String newvalue) {
-		String message = "found and edited";
 		String type = recordID.substring(0, 2);
 
 		if (type.equals("TR")) {
-			editTRRecord(recordID, fieldname, newvalue);
+			return editTRRecord(recordID, fieldname, newvalue);
 		}
 
-		if (type.equals("SR")) {
-			editSRRecord(recordID, fieldname, newvalue);
+		else if (type.equals("SR")) {
+			return editSRRecord(recordID, fieldname, newvalue);
 		}
 
 		logManager.logger.log(Level.INFO, "Record edit successful");
 
-		return message;
+		return "Operation not performed!";
 	}
 
-	//Editing students records
-	private void editSRRecord(String recordID, String fieldname, String newvalue) {
+	// Editing students records
+	private String editSRRecord(String recordID, String fieldname, String newvalue) {
 
 		System.out.println(recordsMap);
 
@@ -231,60 +236,51 @@ public class ServerImp implements ICenterServer {
 
 			List<Record> mylist = value.getValue();
 			Optional<Record> record = mylist.stream().filter(x -> x.getRecordID().equals(recordID)).findFirst();
-
-			if (record.isPresent() && fieldname.equals("Status")) {
-				((Student) record.get()).setStatus(newvalue);
-				//((Student) record.get()).setStatus(null);
-				logManager.logger.log(Level.INFO, "Updated the records\t" + location);
-			} else if (record.isPresent() && fieldname.equals("StatusDate")) {
-				((Student) record.get()).setStatusDate(newvalue);
-				logManager.logger.log(Level.INFO, "Updated the records\t" + location);
-			} else {
-				logManager.logger.log(Level.INFO, "Records not found\t" + location);
-				System.out.println("Record not found");
+			if (record.isPresent()) {
+				if (record.isPresent() && fieldname.equals("Status")) {
+					((Student) record.get()).setStatus(newvalue);
+					logManager.logger.log(Level.INFO, "Updated the records\t" + location);
+					return "Updated record with status :: "+newvalue;
+					// ((Student) record.get()).setStatus(null);
+				} else if (record.isPresent() && fieldname.equals("StatusDate")) {
+					((Student) record.get()).setStatusDate(newvalue);
+					logManager.logger.log(Level.INFO, "Updated the records\t" + location);
+					return "Updated record with status date :: "+newvalue;
+				} 
 			}
 		}
-
-		System.out.println(recordsMap);
-
+		return "Record with "+recordID+"not found!";
 	}
 
-	//Editing Teacher records
-	private void editTRRecord(String recordID, String fieldname, String newvalue) {
-
-		System.out.println(recordsMap);
-
+	// Editing Teacher records
+	private String editTRRecord(String recordID, String fieldname, String newvalue) {
 		for (Entry<String, List<Record>> val : recordsMap.entrySet()) {
 
 			List<Record> mylist = val.getValue();
 			Optional<Record> record = mylist.stream().filter(x -> x.getRecordID().equals(recordID)).findFirst();
 
 			System.out.println(record);
+			if (record.isPresent()) {
+				if (record.isPresent() && fieldname.equals("Phone")) {
+					((Teacher) record.get()).setPhone(newvalue);
+					logManager.logger.log(Level.INFO, "Updated the records\t" + location);
+					return "Updated record with Phone :: "+newvalue;
+				}
 
-			if (record.isPresent() && fieldname.equals("Phone")) {
-				((Teacher) record.get()).setPhone(newvalue);
-				logManager.logger.log(Level.INFO, "Updated the records\t" + location);
-			}
+				else if (record.isPresent() && fieldname.equals("Address")) {
+					((Teacher) record.get()).setAddress(newvalue);
+					logManager.logger.log(Level.INFO, "Updated the records\t" + location);
+					return "Updated record with address :: "+newvalue;
+				}
 
-			else if (record.isPresent() && fieldname.equals("Address")) {
-				((Teacher) record.get()).setAddress(newvalue);
-				logManager.logger.log(Level.INFO, "Updated the records\t" + location);
-
-			}
-
-			else if (record.isPresent() && fieldname.equals("Location")) {
-				((Teacher) record.get()).setLocation(newvalue);
-				logManager.logger.log(Level.INFO, "Updated the records\t" + location);
-			}
-
-			else {
-				logManager.logger.log(Level.INFO, "Records not found\t" + location);
-				System.out.println("Record not found");
+				else if (record.isPresent() && fieldname.equals("Location")) {
+					((Teacher) record.get()).setLocation(newvalue);
+					logManager.logger.log(Level.INFO, "Updated the records\t" + location);
+					return "Updated record with location :: "+newvalue;
+				} 
 			}
 		}
-
-		System.out.println(recordsMap);
-
+		return "Record with "+recordID+" not found";
 	}
 
 	// Editing the Students record for courses Registered.

@@ -122,7 +122,8 @@ public class ClientImp {
 		String message = "";
 		logManager.logger.log(Level.INFO, "Initiating the record edit request");
 		try {
-			iCenterServer.editRecord(recordID, fieldname, newvalue);
+			message = iCenterServer.editRecord(recordID, fieldname, newvalue);
+			System.out.println(message);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}

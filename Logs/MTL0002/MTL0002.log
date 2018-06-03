@@ -1,0 +1,32 @@
+Jun 02, 2018 9:51:06 PM com.Client.ClientImp createTRecord
+INFO: Initiating T record object creation request
+Jun 02, 2018 9:51:06 PM com.Client.ClientImp createTRecord
+INFO: Teacher record is created and assigned with TR1
+Jun 02, 2018 9:51:51 PM com.Client.ClientImp createSRecord
+INFO: Initiating S record object creation request
+Jun 02, 2018 9:51:51 PM com.Client.ClientImp createSRecord
+INFO: student record is created and assigned with SR1
+Jun 02, 2018 9:53:11 PM com.Client.ClientImp editRecord
+INFO: Initiating the record edit request
+Jun 02, 2018 9:53:11 PM com.Client.ClientImp editRecord
+INFO: 
+Jun 02, 2018 9:53:31 PM com.Client.ClientImp editRecord
+INFO: Initiating the record edit request
+Jun 02, 2018 9:53:31 PM com.Client.ClientImp editRecord
+INFO: 
+Jun 02, 2018 9:53:50 PM com.Client.ClientImp editRecord
+INFO: Initiating the record edit request
+Jun 02, 2018 9:53:50 PM com.Client.ClientImp editRecord
+INFO: 
+Jun 02, 2018 9:54:28 PM com.Client.ClientImp editRecord
+INFO: Initiating the record edit request
+Jun 02, 2018 9:54:28 PM com.Client.ClientImp editRecord
+INFO: 
+Jun 02, 2018 9:55:10 PM com.Client.ClientImp editRecord
+INFO: Initiating the record edit request
+Jun 02, 2018 9:55:10 PM com.Client.ClientImp editRecord
+INFO: 
+Jun 02, 2018 9:55:41 PM com.Client.ClientImp editRecord
+INFO: Initiating the record edit request
+Jun 02, 2018 9:55:41 PM com.Client.ClientImp editRecord
+INFO: 

@@ -1,0 +1,38 @@
+Jun 02, 2018 10:41:13 PM com.Client.ClientImp getRecordCounts
+INFO: Initiating record count request
+Jun 02, 2018 10:52:08 PM com.Client.ClientImp createTRecord
+INFO: Initiating T record object creation request
+Jun 02, 2018 10:52:08 PM com.Client.ClientImp createTRecord
+INFO: Teacher record is created and assigned with TR2
+Jun 02, 2018 10:52:11 PM com.Client.ClientImp getRecordCounts
+INFO: Initiating record count request
+Jun 02, 2018 10:59:32 PM com.Client.ClientImp getRecordCounts
+INFO: Initiating record count request
+Jun 02, 2018 11:03:09 PM com.Client.ClientImp getRecordCounts
+INFO: received....count as follows
+Jun 02, 2018 11:03:09 PM com.Client.ClientImp getRecordCounts
+INFO: 
+Jun 02, 2018 11:29:49 PM com.Client.ClientImp getRecordCounts
+INFO: Initiating record count request
+Jun 02, 2018 11:30:57 PM com.Client.ClientImp getRecordCounts
+INFO: received....count as follows
+Jun 02, 2018 11:30:57 PM com.Client.ClientImp getRecordCounts
+INFO: 
+Jun 02, 2018 11:32:21 PM com.Client.ClientImp getRecordCounts
+INFO: Initiating record count request
+Jun 02, 2018 11:32:21 PM com.Client.ClientImp getRecordCounts
+INFO: received....count as follows
+Jun 02, 2018 11:32:21 PM com.Client.ClientImp getRecordCounts
+INFO: LVL 0
+Jun 02, 2018 11:38:59 PM com.Client.ClientImp getRecordCounts
+INFO: Initiating record count request
+Jun 02, 2018 11:43:22 PM com.Client.ClientImp getRecordCounts
+INFO: received....count as follows
+Jun 02, 2018 11:43:22 PM com.Client.ClientImp getRecordCounts
+INFO: 
+Jun 02, 2018 11:54:22 PM com.Client.ClientImp getRecordCounts
+INFO: Initiating record count request
+Jun 02, 2018 11:54:22 PM com.Client.ClientImp getRecordCounts
+INFO: received....count as follows
+Jun 02, 2018 11:54:22 PM com.Client.ClientImp getRecordCounts
+INFO: DDO 0,LVL 0
