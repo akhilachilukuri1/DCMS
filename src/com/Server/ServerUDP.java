@@ -59,7 +59,7 @@ public class ServerUDP extends Thread {
 	@Override
 	public void run() {
 		byte[] receiveData;
-		System.out.println(c+" "+location);
+		//System.out.println(c+" "+location);
 		while(true) {
 			try {
 				receiveData = new byte[1024];

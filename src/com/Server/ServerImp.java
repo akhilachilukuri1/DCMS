@@ -15,6 +15,7 @@ import com.Models.Student;
 import com.Models.Teacher;
 import com.Server.UDPRequestProvider;
 
+//Main Implementation of Server Class
 public class ServerImp implements ICenterServer {
 	LogManager logManager;
 	ServerUDP serverUDP;
@@ -61,7 +62,7 @@ public class ServerImp implements ICenterServer {
 		// adding the teacher record to HashMap
 		String message = addRecordToHashMap(key, teacher, null);
 
-		System.out.println(recordsMap);
+		//System.out.println(recordsMap);
 
 		System.out.println("teacher is added " + teacher + "with this key" + key);
 		logManager.logger.log(Level.INFO, "Teacher record created " + teacherid);
@@ -112,7 +113,7 @@ public class ServerImp implements ICenterServer {
 		// adding the student record to HashMap
 		String message = addRecordToHashMap(key, null, student);
 
-		System.out.println(recordsMap);
+		//System.out.println(recordsMap);
 
 		System.out.println("Student is added " + student + "with this key" + key);
 		logManager.logger.log(Level.INFO, "Student record created " + studentid);
@@ -125,7 +126,7 @@ public class ServerImp implements ICenterServer {
 		for (Map.Entry<String, List<Record>> entry : this.recordsMap.entrySet()) {
 			List<Record> list = entry.getValue();
 			count+=list.size();
-			System.out.println(entry.getKey()+" "+list.size());
+			//System.out.println(entry.getKey()+" "+list.size());
 		}
 		return count;
 	}
@@ -133,7 +134,7 @@ public class ServerImp implements ICenterServer {
 	public String getRecordCount() {
         String recordCount = null;
         UDPRequestProvider[] req = new UDPRequestProvider[2];
-        int cntr = 0;
+        int counter = 0;
         ArrayList<String> locList = new ArrayList<>();
         locList.add("MTL");
         locList.add("LVL");
@@ -143,12 +144,12 @@ public class ServerImp implements ICenterServer {
                 recordCount = loc+","+getCurrServerCnt();
             } else {
                 try {
-                	req[cntr] = new UDPRequestProvider(ServerMain.serverRepo.get(loc));
+                	req[counter] = new UDPRequestProvider(ServerMain.serverRepo.get(loc));
                 } catch (IOException e) {
                     logManager.logger.log(Level.SEVERE, e.getMessage());
                 }
-                req[cntr].start();
-                cntr++;
+                req[counter].start();
+                counter++;
             }
         }
         for (UDPRequestProvider request : req) {
@@ -184,7 +185,7 @@ public class ServerImp implements ICenterServer {
 	// Editing students records
 	private String editSRRecord(String recordID, String fieldname, String newvalue) {
 
-		System.out.println(recordsMap);
+		//System.out.println(recordsMap);
 
 		for (Entry<String, List<Record>> value : recordsMap.entrySet()) {
 
@@ -213,7 +214,7 @@ public class ServerImp implements ICenterServer {
 			List<Record> mylist = val.getValue();
 			Optional<Record> record = mylist.stream().filter(x -> x.getRecordID().equals(recordID)).findFirst();
 
-			System.out.println(record);
+			//System.out.println(record);
 			if (record.isPresent()) {
 				if (record.isPresent() && fieldname.equals("Phone")) {
 					((Teacher) record.get()).setPhone(newvalue);
@@ -250,7 +251,7 @@ public class ServerImp implements ICenterServer {
 				logManager.logger.log(Level.INFO, "Updated the records\t" + location);
 			}
 		}
-		System.out.println(recordsMap);
+		//System.out.println(recordsMap);
 		return null;
 	}
 }
